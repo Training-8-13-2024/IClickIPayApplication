@@ -54,7 +54,7 @@ fun InfoScreen(
     val contentHeader = remember { mutableStateOf(contentMessages[index.value]) }
     val contentImage = remember { mutableIntStateOf(contentImages[index.value]) }
     val dragAmount = remember { mutableStateOf(0f) }
-    val threshold = 350f
+    val threshold = 300f
 
     Scaffold { innerPadding ->
         Column(
@@ -135,7 +135,7 @@ fun InfoScreen(
                             .padding(vertical = 25.dp)
                     )
                     ButtonComponent(
-                        onclick = { /* Handle button click */ },
+                        onclick = { navController.navigate(Navigation.SIGNUP.name) },
                         text = "Get Started"
                     )
                     Text(

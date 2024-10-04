@@ -11,10 +11,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -25,18 +29,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.iclickipay.iclickipayapplication.R
+import com.iclickipay.iclickipayapplication.ui.components.Form
 
 
 @Composable
 fun SignUpScreen(
     navController: NavController
 ){
+    val firstName = remember { mutableStateOf("") }
+    val lastName = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
+    val phoneNumber = remember { mutableStateOf("") }
+
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(20.dp)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             Row(
                 modifier = Modifier
@@ -78,6 +89,21 @@ fun SignUpScreen(
                         .size(300.dp)
                 )
             }
+            Spacer(
+                modifier = Modifier
+                    .padding(vertical = 10.dp)
+            )
+            Form(
+                onFormSubmit = {},
+                firstName = firstName.value,
+                onFirstNameChange = { firstName.value = it },
+                lastName = lastName.value,
+                onLastNameChange = { lastName.value = it },
+                email = email.value,
+                onEmailChange = { email.value = it },
+                phoneNumber = phoneNumber.value,
+                onPhoneNumberChange = { phoneNumber.value = it }
+            )
         }
     }
 }
