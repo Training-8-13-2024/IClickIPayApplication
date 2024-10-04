@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.hemanth.iclickipayapplication.R
+import com.hemanth.iclickipayapplication.ui.components.ButtonComponent
 
 
 @Composable
@@ -74,23 +75,12 @@ fun Home(
             Spacer(modifier = Modifier
                 .height(100.dp)
             )
-            Button(
-                onClick = {
+            ButtonComponent(
+                onclick = {
                     navController.navigate("info")
                 },
-                colors = ButtonColors(
-                    containerColor = colorResource(R.color.orange),
-                    contentColor = Color.White,
-                    disabledContainerColor = Color.Gray,
-                    disabledContentColor = Color.White
-                ),
-                modifier = Modifier
-                    .padding(16.dp)
-                    .width(200.dp)
-                    .height(50.dp)
-            ){
-                Text(text = "Sign up", fontSize = 17.sp)
-            }
+                text = "Sign up"
+            )
             Text(text = "Sign in", color = colorResource(R.color.orange), fontSize = 17.sp, modifier = Modifier.clickable { navController.navigate("login") } )
         }
     }

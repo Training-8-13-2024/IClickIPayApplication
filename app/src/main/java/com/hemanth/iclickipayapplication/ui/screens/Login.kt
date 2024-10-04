@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.hemanth.iclickipayapplication.R
+import com.hemanth.iclickipayapplication.ui.components.ButtonComponent
 
 
 @Composable
@@ -95,8 +96,17 @@ fun LoginScreen(
                     },
                     fontSize = 35.sp
                 )
-                Text(text = "Password recovery", color = Color.White, fontSize = 20.sp, modifier = Modifier.padding(vertical = 20.dp))
-                Text(text = "Enter your phone number or your email", color = Color.White, fontSize = 20.sp)
+                Text(
+                    text = "Password recovery",
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(vertical = 20.dp)
+                )
+                Text(
+                    text = "Enter your phone number or your email",
+                    color = Color.White,
+                    fontSize = 20.sp
+                )
                 TextField(
                     value = "",
                     onValueChange = {},
@@ -120,24 +130,17 @@ fun LoginScreen(
                         .padding(20.dp)
                         .fillMaxWidth()
                 )
-                Button(
-                    onClick = {
+                ButtonComponent(
+                    onclick = {
                         navController.navigate("main")
                     },
-                    colors = ButtonColors(
-                        containerColor = colorResource(R.color.orange),
-                        contentColor = Color.White,
-                        disabledContainerColor = Color.Gray,
-                        disabledContentColor = Color.White
-                    ),
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .width(200.dp)
-                        .height(50.dp)
-                ) {
-                    Text(text = "Send", fontSize = 17.sp)
-                }
-                Text(text = "No account? Create one!", color = colorResource(R.color.orange), fontSize = 17.sp, modifier = Modifier.clickable { navController.navigate("login") } )
+                    text = "Send"
+                )
+                Text(
+                    text = "No account? Create one!",
+                    color = colorResource(R.color.orange),
+                    fontSize = 17.sp,
+                    modifier = Modifier.clickable { navController.navigate("login") })
             }
         }
     }
