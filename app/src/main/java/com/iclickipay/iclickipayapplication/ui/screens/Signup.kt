@@ -83,7 +83,7 @@ fun SignUpScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.group05),
+                    painter = painterResource(id = R.drawable.group04),
                     contentDescription = "Image",
                     modifier = Modifier
                         .size(300.dp)
