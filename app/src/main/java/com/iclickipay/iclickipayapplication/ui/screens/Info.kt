@@ -45,10 +45,10 @@ fun InfoScreen(
         "Services",
     )
     val contentImages = listOf(
-        R.drawable.group01,
-        R.drawable.group02,
-        R.drawable.group03,
-        R.drawable.group04,
+        R.drawable.bank,
+        R.drawable.messages,
+        R.drawable.move,
+        R.drawable.services,
     )
     val index = remember { mutableStateOf(0) }
     val contentHeader = remember { mutableStateOf(contentMessages[index.value]) }

@@ -42,7 +42,7 @@ fun SignUpScreen(
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(20.dp)
+                .padding(vertical = 20.dp, horizontal = 10.dp)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
@@ -80,7 +80,7 @@ fun SignUpScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.group04),
+                    painter = painterResource(id = R.drawable.signup),
                     contentDescription = "Image",
                     modifier = Modifier
                         .size(300.dp)
