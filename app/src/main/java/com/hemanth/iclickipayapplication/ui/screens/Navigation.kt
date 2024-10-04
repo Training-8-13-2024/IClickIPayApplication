@@ -17,22 +17,22 @@ fun Navigation() {
             MainScreen(navController)
         }
         composable("mechanic") {
-            MechanicScreen(navController)
+            //MechanicScreen(navController)
         }
         composable("bank") {
-            BankScreen(navController)
+         //   BankScreen(navController)
         }
         composable("tinder") {
-            TinderScreen(navController)
+           // TinderScreen(navController)
         }
         composable("doctor") {
-            DoctorScreen(navController)
+           // DoctorScreen(navController)
         }
         composable("hotel") {
-            HotelScreen(navController)
+          //  HotelScreen(navController)
         }
         composable("learn") {
-            LearnScreen(navController)
+          //  LearnScreen(navController)
         }
     }
 }

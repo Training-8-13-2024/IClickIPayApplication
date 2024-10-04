@@ -122,7 +122,7 @@ fun LoginScreen(
                 )
                 Button(
                     onClick = {
-                        navController.navigate("home")
+                        navController.navigate("main")
                     },
                     colors = ButtonColors(
                         containerColor = colorResource(R.color.orange),
