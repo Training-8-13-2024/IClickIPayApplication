@@ -12,9 +12,14 @@ import com.iclickipay.iclickipayapplication.ui.screens.MainScreen
 import hemanth.doctor.ui.DoctorScreen
 
 import com.iclickipay.iclickipayapplication.ui.screens.SignUpScreen
+import com.iclickipayapplication.ui.screen.BankScreen
+import com.iclickipayapplication.ui.screen.HotelScreen
+import com.iclickipayapplication.ui.screen.LearnScreen
+import com.iclickipayapplication.ui.screen.MechanicScreen
+import com.iclickipayapplication.ui.screen.TinderScreen
 
 enum class Navigation {
-    HOME, INFO, LOGIN, MAIN, DOCTOR, SIGNUP
+    HOME, INFO, LOGIN, MAIN, DOCTOR, SIGNUP, MECHANIC, BANK, TINDER, HOTEL, LEARN
 }
 
 sealed class NavigationPaths {
@@ -43,11 +48,26 @@ fun Navigation(
         composable(Navigation.MAIN.name) {
             MainScreen(navController)
         }
+        composable(Navigation.SIGNUP.name) {
+            SignUpScreen()
+        }
         composable(Navigation.DOCTOR.name) {
             DoctorScreen(navController)
         }
-        composable(Navigation.SIGNUP.name) {
-            SignUpScreen()
+        composable(Navigation.MECHANIC.name) {
+            MechanicScreen(navController)
+        }
+        composable(Navigation.BANK.name) {
+            BankScreen(navController)
+        }
+        composable(Navigation.TINDER.name) {
+            TinderScreen(navController)
+        }
+        composable(Navigation.HOTEL.name) {
+            HotelScreen(navController)
+        }
+        composable(Navigation.LEARN.name) {
+            LearnScreen(navController)
         }
     }
 }
