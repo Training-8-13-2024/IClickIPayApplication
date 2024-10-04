@@ -49,7 +49,7 @@ fun Navigation(
             MainScreen(navController)
         }
         composable(Navigation.SIGNUP.name) {
-            SignUpScreen()
+            SignUpScreen(navController)
         }
         composable(Navigation.DOCTOR.name) {
             DoctorScreen(navController)
