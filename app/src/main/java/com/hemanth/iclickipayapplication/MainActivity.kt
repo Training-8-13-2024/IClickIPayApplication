@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.hemanth.iclickipayapplication.ui.components.Navigation
 import com.hemanth.iclickipayapplication.ui.theme.IClickIPayApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +21,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             IClickIPayApplicationTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Welcome to IClickIpay",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                App()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun App() {
+    val navController = rememberNavController()
+    Navigation(navController)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     IClickIPayApplicationTheme {
-        Greeting("Android")
+        App()
     }
 }
