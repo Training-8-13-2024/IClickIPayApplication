@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.hemanth.iclickipayapplication"
+    namespace = "com.iclickipay.iclickipayapplication"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.hemanth.iclickipayapplication"
+        applicationId = "com.iclickipay.iclickipayapplication"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

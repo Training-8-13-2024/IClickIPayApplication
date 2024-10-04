@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hemanth.hotel"
+    namespace = "com.iclickipay.hotel"
     compileSdk = 34
 
     defaultConfig {

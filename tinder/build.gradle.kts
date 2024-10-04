@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hemanth.tinder"
+    namespace = "com.iclickipay.tinder"
     compileSdk = 34
 
     defaultConfig {

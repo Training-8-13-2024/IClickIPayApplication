@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hemanth.bank"
+    namespace = "com.iclickipay.bank"
     compileSdk = 34
 
     defaultConfig {

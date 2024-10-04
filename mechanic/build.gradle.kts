@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hemanth.mechanic"
+    namespace = "com.iclickipay.mechanic"
     compileSdk = 34
 
     defaultConfig {
