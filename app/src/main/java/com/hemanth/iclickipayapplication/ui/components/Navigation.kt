@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.hemanth.iclickipayapplication.ui.screens.Home
 import com.hemanth.iclickipayapplication.ui.screens.InfoScreen
+import com.hemanth.iclickipayapplication.ui.screens.LoginScreen
 
 
 @Composable
@@ -23,6 +24,11 @@ fun Navigation(
         }
         composable("info") {
             InfoScreen()
+        }
+        composable("login") {
+            LoginScreen(
+                navController
+            )
         }
     }
 }

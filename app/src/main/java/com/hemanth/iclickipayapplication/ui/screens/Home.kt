@@ -2,6 +2,7 @@ package com.hemanth.iclickipayapplication.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -90,7 +91,7 @@ fun Home(
             ){
                 Text(text = "Sign up", fontSize = 17.sp)
             }
-            Text(text = "Sign in", color = colorResource(R.color.orange), fontSize = 17.sp  )
+            Text(text = "Sign in", color = colorResource(R.color.orange), fontSize = 17.sp, modifier = Modifier.clickable { navController.navigate("login") } )
         }
     }
 }
