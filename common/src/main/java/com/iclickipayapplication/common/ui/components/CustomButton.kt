@@ -39,6 +39,7 @@ fun CustomButton(
     ) {
 
         OutlinedButton(
+            border = null,
             onClick = onClick,
             modifier = modifier
                 .fillMaxWidth()
