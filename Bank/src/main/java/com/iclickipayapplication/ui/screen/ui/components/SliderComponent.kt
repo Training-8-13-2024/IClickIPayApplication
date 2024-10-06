@@ -1,4 +1,4 @@
-package com.iclickipayapplication.ui.screen.components
+package com.iclickipayapplication.ui.screen.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,9 +27,10 @@ import com.iclickipayapplication.ui.screen.data.models.Dummy
 
 @Composable
 fun SliderComponent(
-    sliders: List<Dummy>
+    sliders: List<Dummy>,
+    selectedIndex: Int,
+    onClick: (Int) -> Unit
 ) {
-    var selectedIndex = remember { mutableStateOf(0) }
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -37,10 +38,9 @@ fun SliderComponent(
     {
         items(sliders.size) { item ->
             SliderItem(item = sliders[item],
-                selected = item == selectedIndex.value,
-                onClick = {
-                    selectedIndex.value = item
-            })
+                selected = item == selectedIndex,
+                onClick = { onClick(item) }
+            )
         }
     }
 }

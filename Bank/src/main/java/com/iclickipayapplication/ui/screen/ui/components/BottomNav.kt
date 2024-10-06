@@ -1,4 +1,4 @@
-package com.iclickipayapplication.ui.screen.components
+package com.iclickipayapplication.ui.screen.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

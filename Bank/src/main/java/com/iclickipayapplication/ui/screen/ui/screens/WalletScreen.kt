@@ -25,7 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iclickipay.bank.R
-import com.iclickipayapplication.ui.screen.components.HomeNav
+import com.iclickipayapplication.ui.screen.data.constants.BALANCE
+import com.iclickipayapplication.ui.screen.data.constants.GREY
+import com.iclickipayapplication.ui.screen.data.constants.HORIZONAL_PADDING
+import com.iclickipayapplication.ui.screen.ui.components.HomeNav
 import com.iclickipayapplication.ui.screen.data.models.InnerNav
 
 
@@ -37,10 +40,6 @@ fun WalletScreen() {
         InnerNav.Received
     )
     val currentItem = remember { mutableStateOf<InnerNav>(InnerNav.All) }
-    val HORIZONAL_PADDING = 30.dp
-    val VERTICAL_PADDING = 40.dp
-    val BALANCE = "926.21"
-    val GREY = 0xFFA6AAB4
     Column(
         modifier = Modifier
             .fillMaxSize()

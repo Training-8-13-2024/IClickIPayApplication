@@ -1,4 +1,4 @@
-package com.iclickipayapplication.ui.screen.components
+package com.iclickipayapplication.ui.screen.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

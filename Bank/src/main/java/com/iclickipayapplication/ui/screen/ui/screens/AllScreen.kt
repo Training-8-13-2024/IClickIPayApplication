@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.iclickipayapplication.ui.screen.components.SearchInput
-import com.iclickipayapplication.ui.screen.components.TransactionCard
+import com.iclickipayapplication.ui.screen.ui.components.SearchInput
+import com.iclickipayapplication.ui.screen.ui.components.TransactionCard
 import com.iclickipayapplication.ui.screen.ui.viewmodel.TransactionViewModel
 
 @Composable

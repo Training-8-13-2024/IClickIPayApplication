@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iclickipay.bank.R
-import com.iclickipayapplication.ui.screen.components.HomeNav
+import com.iclickipayapplication.ui.screen.ui.components.HomeNav
 import com.iclickipayapplication.ui.screen.data.models.InnerNav
 
 

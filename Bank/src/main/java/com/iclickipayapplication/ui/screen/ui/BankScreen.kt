@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import com.iclickipayapplication.ui.screen.components.bottomNavigation
+import com.iclickipayapplication.ui.screen.ui.components.bottomNavigation
 import com.iclickipayapplication.ui.screen.data.models.Bankscreens
 import com.iclickipayapplication.ui.screen.ui.screens.HomeScreen
 import com.iclickipayapplication.ui.screen.ui.screens.MessageScreen

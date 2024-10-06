@@ -1,4 +1,4 @@
-package com.iclickipayapplication.ui.screen.components
+package com.iclickipayapplication.ui.screen.ui.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.TextSelectionColors
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
@@ -27,16 +28,17 @@ fun Input(
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = false,
-    isError: Boolean = false
+    isError: Boolean = false,
+    inputHeight: Int = 50
 ) {
     TextField(
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = { onValueChange(it) },
         placeholder = { Text(text = inputName, fontSize = 13.sp) },
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp)
-            .border(shape = RectangleShape, color = colorResource(R.color.grey), width = 1.dp),
+            .height(inputHeight.dp)
+            .border(shape = ShapeDefaults.Small, color = colorResource(R.color.grey), width = 1.dp),
         keyboardOptions = keyboardOptions,
         singleLine = singleLine,
         isError = isError,
