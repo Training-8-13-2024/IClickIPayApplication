@@ -10,13 +10,18 @@ import hemanth.doctor.ui.screens.AgeScreen
 import hemanth.doctor.ui.screens.DoctorGenderScreen
 import hemanth.doctor.ui.screens.DoctorScreen1
 import hemanth.doctor.ui.screens.DoctorScreen2
+import hemanth.doctor.ui.screens.InjuryQuestion1Screen
+import hemanth.doctor.ui.screens.InjuryScreen
 import hemanth.doctor.ui.screens.QuestionnaireScreen
+import hemanth.doctor.ui.screens.RegionScreen
 import hemanth.doctor.ui.screens.SymptomsScreen
+import hemanth.doctor.ui.screens.WeeksScreen
 
 
 enum class DoctorNavigation {
-    SCREEN1, SCREEN2, PROFILE, QUESTIONNAIRE, SYMPTOMS, GENDER, AGE
+    SCREEN1, SCREEN2, WEEKS, QUESTIONNAIRE, SYMPTOMS, GENDER, AGE, REGION, INJURY, INJURYQUESTION1
 }
+
 @Composable
 fun DoctorScreen(navController: NavHostController? = null) {
     // Create a separate NavController for Doctor navigation
@@ -29,7 +34,7 @@ fun DoctorScreen(navController: NavHostController? = null) {
     ) {
         composable(
             DoctorNavigation.SCREEN1.name,
-            ) {
+        ) {
             DoctorScreen1(doctorNavController)
         }
         composable(DoctorNavigation.SCREEN2.name) {
@@ -37,17 +42,17 @@ fun DoctorScreen(navController: NavHostController? = null) {
         }
         composable(
             DoctorNavigation.GENDER.name,
-            ) {
+        ) {
             DoctorGenderScreen(doctorNavController)
         }
         composable(
             DoctorNavigation.AGE.name,
-            ) {
+        ) {
             AgeScreen(doctorNavController)
         }
         composable(
             DoctorNavigation.QUESTIONNAIRE.name,
-            ) {
+        ) {
             QuestionnaireScreen(doctorNavController)
         }
         composable(
@@ -56,7 +61,30 @@ fun DoctorScreen(navController: NavHostController? = null) {
         {
             SymptomsScreen(doctorNavController)
         }
-
+        composable(
+            DoctorNavigation.REGION.name,
+        )
+        {
+            RegionScreen(doctorNavController)
+        }
+        composable(
+            DoctorNavigation.WEEKS.name,
+        )
+        {
+            WeeksScreen(doctorNavController)
+        }
+        composable(
+            DoctorNavigation.INJURY.name,
+        )
+        {
+            InjuryScreen(doctorNavController)
+        }
+        composable(
+            DoctorNavigation.INJURYQUESTION1.name,
+        )
+        {
+            InjuryQuestion1Screen(doctorNavController)
+        }
     }
 }
 

@@ -1,5 +1,10 @@
 package com.iclickipayapplication.ui.screen
 
+import android.content.Intent
+import android.provider.Settings
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -19,19 +24,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.location.LocationManagerCompat.isLocationEnabled
 import androidx.navigation.NavHostController
+import com.google.android.gms.maps.GoogleMap
 import com.iclickipay.tinder.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.ui.TinderNavigationData
+import com.iclickipayapplication.ui.domain.isLocationEnabled
 
 
 @Composable
 fun TinderMapScreen(navController: NavHostController) {
+    val context = LocalContext.current
+
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted ->
+            if (isGranted) {
+                if (isLocationEnabled(context)) {
+                    Toast.makeText(context, "Location enabled", Toast.LENGTH_SHORT).show()
+                    navController.navigate(TinderNavigationData.TUTORIAL.name)
+                } else {
+                    context.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                }
+            } else {
+                Toast.makeText(context, "Location permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    )
     Scaffold(
         topBar = {
             Row(
@@ -117,7 +143,7 @@ fun TinderMapScreen(navController: NavHostController) {
                 CustomButton(
                     text = "Let's go",
                     onClick = {
-                        navController.navigate(TinderNavigationData.TUTORIAL.name)
+                        locationPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
                     },
                     modifier = Modifier.fillMaxWidth()
                 )

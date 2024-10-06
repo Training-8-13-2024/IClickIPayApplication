@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.iclickipay.iclickipayapplication" />
+                  <option name="mobileSdkAppId" value="1:778850806935:android:af7cce01f37e417e628dd2" />
+                  <option name="projectId" value="iclick-6a929" />
+                  <option name="projectNumber" value="778850806935" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
