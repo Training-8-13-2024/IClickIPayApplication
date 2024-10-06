@@ -9,15 +9,13 @@ import com.iclickipay.iclickipayapplication.ui.screens.Home
 import com.iclickipay.iclickipayapplication.ui.screens.InfoScreen
 import com.iclickipay.iclickipayapplication.ui.screens.LoginScreen
 import com.iclickipay.iclickipayapplication.ui.screens.MainScreen
-import hemanth.doctor.ui.DoctorScreen
-
 import com.iclickipay.iclickipayapplication.ui.screens.SignUpScreen
-import com.iclickipayapplication.ui.TinderNavigation
 import com.iclickipayapplication.ui.screen.HotelScreen
 import com.iclickipayapplication.ui.screen.LearnScreen
 import com.iclickipayapplication.ui.screen.MechanicScreen
 import com.iclickipayapplication.ui.screen.TinderScreen
 import com.iclickipayapplication.ui.screen.ui.BankScreen
+import hemanth.doctor.ui.DoctorScreen
 
 enum class Navigation {
     HOME, INFO, LOGIN, MAIN, DOCTOR, SIGNUP, MECHANIC, BANK, TINDER, HOTEL, LEARN
@@ -33,7 +31,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Navigation.BANK.name
+        startDestination = Navigation.HOME.name
     ) {
         composable(Navigation.HOME.name) {
             Home(navController)
@@ -62,7 +60,7 @@ fun Navigation(
             BankScreen(navController)
         }
         composable(Navigation.TINDER.name) {
-            TinderNavigation(navController)
+            TinderScreen(navController)
         }
         composable(Navigation.HOTEL.name) {
             HotelScreen(navController)

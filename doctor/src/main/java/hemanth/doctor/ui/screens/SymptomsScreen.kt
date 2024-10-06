@@ -39,6 +39,7 @@ import androidx.navigation.NavHostController
 import com.iclickipay.doctor.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.common.ui.components.CustomSearchField
+import hemanth.doctor.ui.DoctorNavigation
 import hemanth.doctor.ui.bodyparts.BoyBack
 import hemanth.doctor.ui.bodyparts.BoyFront
 import hemanth.doctor.ui.bodyparts.BoyHead
@@ -286,7 +287,9 @@ fun SymptomsScreen(doctorNavController: NavHostController? = null) {
                     }
                 }
                 Box(modifier = Modifier.fillMaxWidth().padding(bottom = 70.dp, start = 20.dp, end = 20.dp)) {
-                    CustomButton(text = "Next", onClick = { /*TODO*/ })
+                    CustomButton(text = "Next", onClick = {
+                        doctorNavController?.navigate(DoctorNavigation.REGION.name)
+                    })
                 }
             }
         }
