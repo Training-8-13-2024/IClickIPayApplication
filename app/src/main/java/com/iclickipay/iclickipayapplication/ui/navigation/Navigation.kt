@@ -12,6 +12,7 @@ import com.iclickipay.iclickipayapplication.ui.screens.MainScreen
 import hemanth.doctor.ui.DoctorScreen
 
 import com.iclickipay.iclickipayapplication.ui.screens.SignUpScreen
+import com.iclickipayapplication.ui.TinderNavigation
 import com.iclickipayapplication.ui.screen.BankScreen
 import com.iclickipayapplication.ui.screen.HotelScreen
 import com.iclickipayapplication.ui.screen.LearnScreen
@@ -61,7 +62,7 @@ fun Navigation(
             BankScreen(navController)
         }
         composable(Navigation.TINDER.name) {
-            TinderScreen(navController)
+            TinderNavigation(navController)
         }
         composable(Navigation.HOTEL.name) {
             HotelScreen(navController)

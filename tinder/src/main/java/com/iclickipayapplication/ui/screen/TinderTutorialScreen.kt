@@ -29,8 +29,9 @@ import com.iclickipay.tinder.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.ui.TinderNavigationData
 
+
 @Composable
-fun TinderScreen(navController: NavHostController) {
+fun TinderTutorialScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             Row(
@@ -44,7 +45,7 @@ fun TinderScreen(navController: NavHostController) {
                     modifier = Modifier
                         .size(50.dp)
                         .padding(10.dp)
-                        .clickable { },
+                        .clickable { navController.navigate(TinderNavigationData.MAP.name)  },
                     painter = painterResource(id = com.iclickipayapplication.common.R.drawable.backarrow),
                     contentDescription = "Back"
                 )
@@ -68,7 +69,7 @@ fun TinderScreen(navController: NavHostController) {
                         .weight(1f),
                     contentAlignment = Alignment.TopStart
                 ) {
-                    val image: Painter = painterResource(id = R.drawable.tinderhome)
+                    val image: Painter = painterResource(id = R.drawable.tutorial)
                     Image(
                         painter = image,
                         contentDescription = "Meet Illustration",
@@ -79,11 +80,11 @@ fun TinderScreen(navController: NavHostController) {
                     )
                 }
 
-                Spacer(modifier = Modifier.height(156.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
 
                 Text(
-                    text = "Meet",
+                    text = "Tutorial",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -91,23 +92,43 @@ fun TinderScreen(navController: NavHostController) {
                 )
 
                 Spacer(modifier = Modifier.height(18.dp))
-
-                Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lobortis sit amet odio in egestas. Pellen tesque ultricies justo.",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Center,
-                    color = Color(0xFF888888),
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                TutorialItem(
+                    iconResId = R.drawable.player_fast_back,
+                    title = "Return to profile",
+                    description = ""
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                TutorialItem(
+                    iconResId = R.drawable.cross,
+                    title = "No favorite. The profile will not appear.",
+                    description = ""
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                TutorialItem(
+                    iconResId = R.drawable.heart,
+                    title = "Like. If it's mutual, you can talk together (5 per day)",
+                    description = ""
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                TutorialItem(
+                    iconResId = R.drawable.star,
+                    title = "Super like. Indicate visually that you are interested (1 per day)",
+                    description = ""
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                TutorialItem(
+                    iconResId = R.drawable.icon_2,
+                    title = "Boost. Be top profile during 30 minutes.",
+                    description = ""
                 )
 
                 Spacer(modifier = Modifier.weight(0.5f))
 
 
                 CustomButton(
-                    text = "Let's go",
+                    text = "Discover the Profile",
                     onClick = {
-                        navController.navigate(TinderNavigationData.SCREEN2.name)
+                        navController.navigate(TinderNavigationData.MAIN.name)
                     },
                     modifier = Modifier.fillMaxWidth()
                 )

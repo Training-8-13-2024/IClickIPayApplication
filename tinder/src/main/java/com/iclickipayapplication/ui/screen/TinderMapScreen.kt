@@ -29,8 +29,9 @@ import com.iclickipay.tinder.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.ui.TinderNavigationData
 
+
 @Composable
-fun TinderScreen(navController: NavHostController) {
+fun TinderMapScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             Row(
@@ -44,7 +45,7 @@ fun TinderScreen(navController: NavHostController) {
                     modifier = Modifier
                         .size(50.dp)
                         .padding(10.dp)
-                        .clickable { },
+                        .clickable { navController.navigate(TinderNavigationData.PROFILE.name)  },
                     painter = painterResource(id = com.iclickipayapplication.common.R.drawable.backarrow),
                     contentDescription = "Back"
                 )
@@ -68,7 +69,7 @@ fun TinderScreen(navController: NavHostController) {
                         .weight(1f),
                     contentAlignment = Alignment.TopStart
                 ) {
-                    val image: Painter = painterResource(id = R.drawable.tinderhome)
+                    val image: Painter = painterResource(id = R.drawable.img)
                     Image(
                         painter = image,
                         contentDescription = "Meet Illustration",
@@ -83,7 +84,7 @@ fun TinderScreen(navController: NavHostController) {
 
 
                 Text(
-                    text = "Meet",
+                    text = "Enable geolocation",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -93,7 +94,16 @@ fun TinderScreen(navController: NavHostController) {
                 Spacer(modifier = Modifier.height(18.dp))
 
                 Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lobortis sit amet odio in egestas. Pellen tesque ultricies justo.",
+                    text = "To propose profiles near you,",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center,
+                    color = Color(0xFF888888),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "you must activate the localization",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     textAlign = TextAlign.Center,
@@ -107,7 +117,7 @@ fun TinderScreen(navController: NavHostController) {
                 CustomButton(
                     text = "Let's go",
                     onClick = {
-                        navController.navigate(TinderNavigationData.SCREEN2.name)
+                        navController.navigate(TinderNavigationData.TUTORIAL.name)
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
