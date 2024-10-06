@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -31,7 +33,7 @@ import com.iclickipay.iclickipayapplication.R
 
 
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun MainScreen(navController: NavHostController? = null) {
     val items = listOf(
         "Bank" to R.drawable.bank, // Use your resource icons
         "Hotel" to R.drawable.hotel,
@@ -70,12 +72,12 @@ fun MainScreen(navController: NavHostController) {
                     iconRes = items[index].second,
                     onClick = {
                         when (items[index].first) {
-                            "Bank" -> navController.navigate("bank")
-                            "Hotel" -> navController.navigate("hotel")
-                            "Mechanic" -> navController.navigate("mechanic")
-                            "Doctor" -> navController.navigate("doctor")
-                            "Tinder" -> navController.navigate("tinder")
-                            "Learn" -> navController.navigate("learn")
+                            "Bank" -> navController?.navigate("bank")
+                            "Hotel" -> navController?.navigate("hotel")
+                            "Mechanic" -> navController?.navigate("mechanic")
+                            "Doctor" -> navController?.navigate("doctor")
+                            "Tinder" -> navController?.navigate("tinder")
+                            "Learn" -> navController?.navigate("learn")
 
                         }
                     }
@@ -90,18 +92,23 @@ fun MainScreen(navController: NavHostController) {
 @Composable
 fun GridItem(label: String, iconRes: Int, onClick: () -> Unit) {
     Card(
+        elevation = CardDefaults.cardElevation(2.dp),
         modifier = Modifier
             .padding(8.dp)
             .size(240.dp)
-            .background(Color.Gray)
+            .background(Color.Transparent)
             .clickable { onClick() },
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White,
+        )
 
     ) {
         Column(
+            modifier = Modifier.background(Color.Transparent).fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
+
         ) {
             Image(
                 painter = painterResource(id = iconRes),
@@ -118,4 +125,10 @@ fun GridItem(label: String, iconRes: Int, onClick: () -> Unit) {
             )
         }
     }
+}
+
+@Composable
+@Preview
+fun MainScreenPreview() {
+    MainScreen()
 }
