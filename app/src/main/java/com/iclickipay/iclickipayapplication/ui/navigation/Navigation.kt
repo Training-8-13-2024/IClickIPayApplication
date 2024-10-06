@@ -13,7 +13,6 @@ import hemanth.doctor.ui.DoctorScreen
 
 import com.iclickipay.iclickipayapplication.ui.screens.SignUpScreen
 import com.iclickipayapplication.ui.TinderNavigation
-import com.iclickipayapplication.ui.screen.BankScreen
 import com.iclickipayapplication.ui.screen.HotelScreen
 import com.iclickipayapplication.ui.screen.LearnScreen
 import com.iclickipayapplication.ui.screen.MechanicScreen
@@ -34,7 +33,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Navigation.HOME.name
+        startDestination = Navigation.BANK.name
     ) {
         composable(Navigation.HOME.name) {
             Home(navController)

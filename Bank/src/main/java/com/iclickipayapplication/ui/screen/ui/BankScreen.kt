@@ -18,6 +18,7 @@ import com.iclickipayapplication.ui.screen.components.bottomNavigation
 import com.iclickipayapplication.ui.screen.data.models.Bankscreens
 import com.iclickipayapplication.ui.screen.ui.screens.HomeScreen
 import com.iclickipayapplication.ui.screen.ui.screens.MessageScreen
+import com.iclickipayapplication.ui.screen.ui.screens.SendScreen
 import com.iclickipayapplication.ui.screen.ui.screens.SettingScreen
 import com.iclickipayapplication.ui.screen.ui.screens.WalletScreen
 
@@ -26,7 +27,7 @@ import com.iclickipayapplication.ui.screen.ui.screens.WalletScreen
 fun BankScreen(navController: NavHostController) {
 
     val currentScreen = remember { mutableStateOf<Bankscreens>(Bankscreens.Home) }
-    val screens = listOf(Bankscreens.Home, Bankscreens.Wallet, Bankscreens.Message, Bankscreens.Settings)
+    val screens = listOf(Bankscreens.Home, Bankscreens.Wallet,Bankscreens.Send, Bankscreens.Message, Bankscreens.Settings)
     Scaffold(
         bottomBar = {
             bottomNavigation(
@@ -52,6 +53,7 @@ fun BankScreen(navController: NavHostController) {
                 Bankscreens.Wallet -> WalletScreen()
                 Bankscreens.Message -> MessageScreen()
                 Bankscreens.Settings -> SettingScreen()
+                Bankscreens.Send -> SendScreen()
             }
         }
 
