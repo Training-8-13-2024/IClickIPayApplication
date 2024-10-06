@@ -27,10 +27,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.iclickipay.tinder.R
 import com.iclickipayapplication.common.ui.components.CustomButton
+import com.iclickipayapplication.common.ui.components.CustomButtonImage
 import com.iclickipayapplication.ui.TinderNavigationData
 
+
 @Composable
-fun TinderScreen(navController: NavHostController) {
+fun TinderMeetScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             Row(
@@ -44,7 +46,7 @@ fun TinderScreen(navController: NavHostController) {
                     modifier = Modifier
                         .size(50.dp)
                         .padding(10.dp)
-                        .clickable { },
+                        .clickable { navController.navigate(TinderNavigationData.HOME.name)},
                     painter = painterResource(id = com.iclickipayapplication.common.R.drawable.backarrow),
                     contentDescription = "Back"
                 )
@@ -68,7 +70,7 @@ fun TinderScreen(navController: NavHostController) {
                         .weight(1f),
                     contentAlignment = Alignment.TopStart
                 ) {
-                    val image: Painter = painterResource(id = R.drawable.tinderhome)
+                    val image: Painter = painterResource(id = R.drawable.tindermeet)
                     Image(
                         painter = image,
                         contentDescription = "Meet Illustration",
@@ -83,17 +85,17 @@ fun TinderScreen(navController: NavHostController) {
 
 
                 Text(
-                    text = "Meet",
+                    text = "Add your profile picture",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     color = Color(0xFF333333)
                 )
 
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lobortis sit amet odio in egestas. Pellen tesque ultricies justo.",
+                    text = "Add photo to personalize your space.",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     textAlign = TextAlign.Center,
@@ -101,18 +103,26 @@ fun TinderScreen(navController: NavHostController) {
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
 
-                Spacer(modifier = Modifier.weight(0.5f))
+                Spacer(modifier = Modifier.weight(1f))
 
 
-                CustomButton(
-                    text = "Let's go",
+                CustomButtonImage(
+                    text = "Add a picture",
                     onClick = {
-                        navController.navigate(TinderNavigationData.SCREEN2.name)
+//                navController?.navigate(TinderNavigationData.SCREEN2.name)
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    imageResId = R.drawable.cameras
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                CustomButtonImage(
+                    text = "Add a picture",
+                    onClick = {
+                        navController.navigate(TinderNavigationData.PROFILE.name)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    imageResId = R.drawable.gellary
+                )
             }
         }
     }
