@@ -70,7 +70,8 @@ fun SendScreen(
             is MoneyOptions.END_SCREEN -> EndScreen(
                 Transactiontype = screen.Transactiontype,
                 icon = screen.icon,
-                goHome = { currentScreen.value = MoneyOptions.DEFAULT_SCREEN }
+                goHome = { currentScreen.value = MoneyOptions.DEFAULT_SCREEN },
+                anotherRequest = {currentScreen.value = MoneyOptions.SEND_MONEY }
             )
 
             is MoneyOptions.SEND_MONEY_TO_SENDER ->
@@ -185,7 +186,8 @@ fun SendMoneyScreen(
 fun EndScreen(
     Transactiontype: String,
     icon: Int,
-    goHome: () -> Unit
+    goHome: () -> Unit,
+    anotherRequest: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -218,7 +220,7 @@ fun EndScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ButtonComponent(
-                    onclick = { /*TODO*/ },
+                    onclick = goHome,
                     text = "Go Home"
                 )
             }
@@ -244,11 +246,11 @@ fun EndScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 ButtonComponent(
-                    onclick = { /*TODO*/ },
+                    onclick = goHome,
                     text = "Go Home",
                 )
                 ButtonComponent(
-                    onclick = { /*TODO*/ },
+                    onclick = anotherRequest,
                     text = "Ask again",
                     buttonColor = Color(0xFF10C971),
                 )

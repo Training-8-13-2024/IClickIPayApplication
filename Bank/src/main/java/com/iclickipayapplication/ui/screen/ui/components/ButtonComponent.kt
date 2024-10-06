@@ -26,7 +26,7 @@ fun ButtonComponent(
     fillwidth: Boolean = false,
     enabled: Boolean = true,
     buttonColor: Color = colorResource(R.color.orange)
-){
+) {
     Button(
         onClick = onclick,
         colors = ButtonColors(
@@ -41,7 +41,7 @@ fun ButtonComponent(
             .let { if (!fillwidth) it.padding(16.dp) else it }
             .height(50.dp)
             .let { if (fillwidth) it.fillMaxWidth() else it.width(width.dp) }
-    ){
+    ) {
         Text(text = text, fontSize = 17.sp)
     }
 }
