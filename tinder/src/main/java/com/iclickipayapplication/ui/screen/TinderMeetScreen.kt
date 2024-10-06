@@ -63,7 +63,6 @@ fun TinderMeetScreen(navController: NavHostController, sharedViewModel: SharedVi
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted: Boolean ->
             if (isGranted) {
-                // Launch the camera if permission is granted
                 cameraLauncher.launch(null)
             } else {
                 // Show a message if permission is denied
