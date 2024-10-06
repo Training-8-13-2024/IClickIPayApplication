@@ -1,12 +1,14 @@
 package hemanth.doctor.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -42,7 +44,10 @@ fun DoctorScreen1(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    modifier = Modifier.size(45.dp). padding(0.dp),
+                    modifier = Modifier.size(45.dp). padding(0.dp)
+                        .height(55.dp)
+                        .padding(10.dp)
+                        .clickable { navController?.popBackStack() },
                     painter = painterResource(id = R.drawable.back_arrow), contentDescription = "Back")
             }
         }

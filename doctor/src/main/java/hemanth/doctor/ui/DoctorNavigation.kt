@@ -11,10 +11,11 @@ import hemanth.doctor.ui.screens.DoctorGenderScreen
 import hemanth.doctor.ui.screens.DoctorScreen1
 import hemanth.doctor.ui.screens.DoctorScreen2
 import hemanth.doctor.ui.screens.QuestionnaireScreen
+import hemanth.doctor.ui.screens.SymptomsScreen
 
 
 enum class DoctorNavigation {
-    SCREEN1, SCREEN2, PROFILE, QUESTIONNAIRE, SETTINGS, GENDER, AGE
+    SCREEN1, SCREEN2, PROFILE, QUESTIONNAIRE, SYMPTOMS, GENDER, AGE
 }
 @Composable
 fun DoctorScreen(navController: NavHostController? = null) {
@@ -48,6 +49,12 @@ fun DoctorScreen(navController: NavHostController? = null) {
             DoctorNavigation.QUESTIONNAIRE.name,
             ) {
             QuestionnaireScreen(doctorNavController)
+        }
+        composable(
+            DoctorNavigation.SYMPTOMS.name,
+        )
+        {
+            SymptomsScreen(doctorNavController)
         }
 
     }
