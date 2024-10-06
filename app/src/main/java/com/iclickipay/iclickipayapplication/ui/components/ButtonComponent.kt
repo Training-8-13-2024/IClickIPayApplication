@@ -33,7 +33,7 @@ fun ButtonComponent(
         shape = ShapeDefaults.ExtraSmall,
         modifier = Modifier
             .padding(16.dp)
-            .width(200.dp)
+            .width(250.dp)
             .height(50.dp)
     ){
         Text(text = text, fontSize = 17.sp)
