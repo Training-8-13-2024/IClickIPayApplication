@@ -1,6 +1,7 @@
 package hemanth.doctor.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.iclickipay.doctor.R
 import com.iclickipayapplication.common.ui.components.CustomButton
+import hemanth.doctor.ui.DoctorNavigation
 import hemanth.doctor.ui.theme.IClickIPayApplicationDoctorTheme
 
 
@@ -62,7 +64,8 @@ fun QuestionnaireScreen(
                     Image(
                         modifier = Modifier
                             .size(45.dp)
-                            .padding(0.dp),
+                            .padding(0.dp)
+                            .clickable { navController?.popBackStack() },
                         painter = painterResource(id = R.drawable.back_arrow),
                         contentDescription = "Back"
                     )
@@ -97,7 +100,9 @@ fun QuestionnaireScreen(
 
                 // Button for "Next" at the bottom
                 item {
-                    CustomButton(text = "Next", onClick = { /*TODO*/ })
+                    CustomButton(text = "Next", onClick = {
+                        navController?.navigate(DoctorNavigation.SYMPTOMS.name)
+                    })
                 }
             }
         }
