@@ -39,7 +39,8 @@ fun MoneyDetailTemplate(
     onBackClick: () -> Unit,
     amount: String,
     header: String,
-    trasactionType: String
+    trasactionType: String,
+    onFinish: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -116,7 +117,7 @@ fun MoneyDetailTemplate(
             ) {
                 ButtonComponent(
                     text = "Send",
-                    onclick = {},
+                    onclick = onFinish,
                     fillwidth = true
                 )
             }

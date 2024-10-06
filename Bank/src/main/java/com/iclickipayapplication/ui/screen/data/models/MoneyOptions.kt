@@ -6,5 +6,5 @@ sealed class MoneyOptions() {
     object DEFAULT_SCREEN : MoneyOptions()
     data class SEND_MONEY_TO_RECIPIENT(val sender: Dummy, val amount: String) : MoneyOptions()
     data class SEND_MONEY_TO_SENDER(val sender: Dummy, val amount: String) : MoneyOptions()
-    object END_SCREEN : MoneyOptions()
+    data class END_SCREEN(val Transactiontype: String, val icon: Int) : MoneyOptions()
 }

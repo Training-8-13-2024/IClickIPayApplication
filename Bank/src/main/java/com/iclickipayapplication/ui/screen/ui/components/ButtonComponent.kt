@@ -23,16 +23,19 @@ fun ButtonComponent(
     onclick: () -> Unit,
     text: String,
     width: Int = 250,
-    fillwidth: Boolean = false
+    fillwidth: Boolean = false,
+    enabled: Boolean = true,
+    buttonColor: Color = colorResource(R.color.orange)
 ){
     Button(
         onClick = onclick,
         colors = ButtonColors(
-            containerColor = colorResource(R.color.orange),
+            containerColor = buttonColor,
             contentColor = Color.White,
             disabledContainerColor = Color.Gray,
             disabledContentColor = Color.White
         ),
+        enabled = enabled,
         shape = ShapeDefaults.ExtraSmall,
         modifier = Modifier
             .let { if (!fillwidth) it.padding(16.dp) else it }
