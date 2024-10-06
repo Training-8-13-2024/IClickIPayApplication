@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,6 +15,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iclickipay.iclickipayapplication.R
+import kotlin.math.round
 
 @Composable
 fun ButtonComponent(
@@ -27,9 +30,10 @@ fun ButtonComponent(
             disabledContainerColor = Color.Gray,
             disabledContentColor = Color.White
         ),
+        shape = ShapeDefaults.ExtraSmall,
         modifier = Modifier
             .padding(16.dp)
-            .width(200.dp)
+            .width(250.dp)
             .height(50.dp)
     ){
         Text(text = text, fontSize = 17.sp)

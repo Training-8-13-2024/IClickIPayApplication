@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.iclickipay.iclickipayapplication.R
 import com.iclickipay.iclickipayapplication.ui.components.ButtonComponent
+import com.iclickipay.iclickipayapplication.ui.navigation.Navigation
 
 
 @Composable
@@ -136,7 +137,7 @@ fun LoginScreen(
                     text = "No account? Create one!",
                     color = colorResource(R.color.orange),
                     fontSize = 17.sp,
-                    modifier = Modifier.clickable { navController.navigate("login") })
+                    modifier = Modifier.clickable { navController.navigate(Navigation.SIGNUP.name) })
             }
         }
     }

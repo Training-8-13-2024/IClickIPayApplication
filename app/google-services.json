@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "778850806935",
+    "project_id": "iclick-6a929",
+    "storage_bucket": "iclick-6a929.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778850806935:android:af7cce01f37e417e628dd2",
+        "android_client_info": {
+          "package_name": "com.iclickipay.iclickipayapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXhM1752nT-P_vciKnRA6PR0wsX8X2S0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
