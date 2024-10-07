@@ -11,6 +11,7 @@ import com.iclickipay.iclickipayapplication.ui.screens.InfoScreen
 import com.iclickipay.iclickipayapplication.ui.screens.LoginScreen
 import com.iclickipay.iclickipayapplication.ui.screens.MainScreen
 import com.iclickipay.iclickipayapplication.ui.screens.SignUpScreen
+import com.iclickipayapplication.ui.LearnNavigation
 import com.iclickipayapplication.ui.TinderNavigation
 import com.iclickipayapplication.ui.screen.HotelScreen
 import com.iclickipayapplication.ui.screen.LearnScreen
@@ -67,7 +68,7 @@ fun Navigation(
             HotelScreen(navController)
         }
         composable(Navigation.LEARN.name) {
-            LearnScreen(navController)
+            LearnNavigation(navController)
         }
     }
 }
