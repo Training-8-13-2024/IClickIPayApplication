@@ -12,6 +12,7 @@ data class Dummy(
     companion object {
         val dummyList = listOf(
             Dummy("Rebecca Moore", 972.00.toFloat(), "debit", "2023", R.drawable.profile00),
+            Dummy("Rihanna Fenty", 125.00.toFloat(), "credit", "2019", R.drawable.profile01),
             Dummy("Franz Ferdinand", 125.00.toFloat(), "credit", "2019", R.drawable.profile01),
             Dummy("Franz Ferdinand", 125.00.toFloat(), "credit", "2019", R.drawable.profile01),
             Dummy("iclickigo", 9.50.toFloat(), "debit", "2019", R.drawable.profile002),

@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +34,9 @@ import com.iclickipayapplication.ui.screen.data.models.InnerNav
 
 
 @Composable
-fun WalletScreen() {
+fun WalletScreen(
+    innerPadding: PaddingValues
+) {
     val items = listOf(
         InnerNav.All,
         InnerNav.Sent,
@@ -43,8 +46,8 @@ fun WalletScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(247, 248, 249, 255))
             .verticalScroll(rememberScrollState())
+            .padding(innerPadding)
     ) {
         Row(
             modifier = Modifier

@@ -29,8 +29,6 @@ import com.iclickipayapplication.ui.screen.data.models.InnerNav
 
 
 @Composable
-fun HomeScreen(
-    modifier: Modifier = Modifier
-) {
+fun HomeScreen() {
 
 }
