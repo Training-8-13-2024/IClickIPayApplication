@@ -21,6 +21,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +41,7 @@ import com.iclickipayapplication.ui.TinderNavigationData
 
 @Composable
 fun TinderMainScreen(navController: NavHostController) {
+    var cardBackgroundColor by remember { mutableStateOf(Color.Gray) }
     Scaffold(
         topBar = {
             Row(
@@ -51,7 +56,7 @@ fun TinderMainScreen(navController: NavHostController) {
                         .size(50.dp)
                         .weight(1f)
                         .padding(10.dp)
-                        .clickable { navController.navigate(TinderNavigationData.TUTORIAL.name)  },
+                        .clickable { navController.navigate(TinderNavigationData.TUTORIAL.name) },
                     painter = painterResource(id = R.drawable.home),
                     contentDescription = "Back"
                 )
@@ -60,7 +65,7 @@ fun TinderMainScreen(navController: NavHostController) {
                         .size(50.dp)
                         .weight(1f)
                         .padding(10.dp)
-                        .clickable {  },
+                        .clickable { },
                     painter = painterResource(id = R.drawable.msg),
                     contentDescription = "Back"
                 )
@@ -69,7 +74,7 @@ fun TinderMainScreen(navController: NavHostController) {
                         .size(50.dp)
                         .weight(1f)
                         .padding(10.dp)
-                        .clickable { navController.navigate(TinderNavigationData.PROFILE.name)  },
+                        .clickable { navController.navigate(TinderNavigationData.PROFILE.name) },
                     painter = painterResource(id = R.drawable.profile),
                     contentDescription = "Back"
                 )
@@ -93,6 +98,7 @@ fun TinderMainScreen(navController: NavHostController) {
                         .fillMaxHeight()
                         .weight(0.8f),
                     shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(cardBackgroundColor),
                     elevation = CardDefaults.cardElevation(8.dp)
                 ) {
                     Column {
@@ -103,7 +109,7 @@ fun TinderMainScreen(navController: NavHostController) {
                                 .fillMaxWidth()
                                 .padding(16.dp)
                                 .height(500.dp)
-                                .clickable {  },
+                                .clickable { },
                             contentScale = ContentScale.Crop
                         )
                         Row(
@@ -151,11 +157,11 @@ fun TinderMainScreen(navController: NavHostController) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    TinderImage(painter = painterResource(id = R.drawable.rereturn))
-                    TinderImage(painter = painterResource(id = R.drawable.cancel))
-                    TinderImage(painter = painterResource(id = R.drawable.fire))
-                    TinderImage(painter = painterResource(id = R.drawable.love))
-                    TinderImage(painter = painterResource(id = R.drawable.stars))
+                    TinderImage(painter = painterResource(id = R.drawable.rereturn), onClick = { cardBackgroundColor = Color(0xFF2196F3) })
+                    TinderImage(painter = painterResource(id = R.drawable.cancel), onClick = { cardBackgroundColor = Color(0xFFFF7A1A) })
+                    TinderImage(painter = painterResource(id = R.drawable.fire), onClick = { cardBackgroundColor = Color(0xFF6C63FF) })
+                    TinderImage(painter = painterResource(id = R.drawable.love), onClick = { cardBackgroundColor = Color(0xFF63E2BC) })
+                    TinderImage(painter = painterResource(id = R.drawable.stars), onClick = { cardBackgroundColor = Color(0xFFFFC10E) })
                 }
 
             }
@@ -165,12 +171,13 @@ fun TinderMainScreen(navController: NavHostController) {
 }
 
 @Composable
-fun TinderImage(painter: Painter) {
+fun TinderImage(painter: Painter, onClick:()-> Unit) {
     Image(
         painter = painter,
         contentDescription = null,
         modifier = Modifier
             .size(75.dp)
             .padding(2.dp)
+            .clickable(onClick = onClick)
     )
 }

@@ -44,6 +44,7 @@ android {
 dependencies {
 
     implementation(project(":common"))
+    implementation(project(":data"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -72,4 +73,8 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.46")
     kapt("com.google.dagger:hilt-android-compiler:2.46")
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp3.logging.interceptor)
 }
