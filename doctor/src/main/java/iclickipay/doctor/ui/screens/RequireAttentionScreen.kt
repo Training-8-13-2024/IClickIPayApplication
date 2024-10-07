@@ -2,6 +2,7 @@ package iclickipay.doctor.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.iclickipay.doctor.R
+import iclickipay.doctor.ui.DoctorNavigation
 import iclickipay.doctor.ui.parts.CustomTabs
 import iclickipay.doctor.ui.parts.TabSymptoms
 
@@ -48,6 +50,9 @@ fun RequireAttentionScreen(doctorNavController: NavHostController? = null) {
                 Image(
                     modifier = Modifier
                         .size(35.dp)
+                        .clickable {
+                            doctorNavController?.navigate(DoctorNavigation.SCREEN1.name)
+                        }
                         .padding(0.dp),
                     painter = painterResource(id = R.drawable.home_icon),
                     contentDescription = "Back"

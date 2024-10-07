@@ -123,7 +123,7 @@ fun ResultItem(label: String, color: Color, onClick: () -> Unit) {
 
                 CustomProgressIndicator(
                     progress = 0.6f,
-                    fillColor = Color.Green,
+                    fillColor = color,
                     backgroundColor = Color.LightGray
                 )
             }
