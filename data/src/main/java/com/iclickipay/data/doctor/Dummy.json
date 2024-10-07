@@ -1,0 +1,54 @@
+
+
+
+// Dummy Data for Doctor
+{
+  "status": "success",
+  "code": 200,
+  "data": {
+    "options": [
+      {
+        id: 1,
+        name: "Diagnosis",
+        "patient": {
+          "id": 1,
+          name: "John Doe",
+          gender: "Female",
+          age: 25,
+          items: [
+            "overweight",
+            "Injury",
+            "Smoking"
+          ],
+          symptoms: [
+            "Cough",
+            "Fever",
+            "Headache"
+          ],
+          regions: [
+            "North America",
+            "Asia",
+            "Oceania"
+          ],
+          injury: {
+            severity: {
+              level: "High",
+              score: 8
+            },
+            injuryCause: true,
+            injuryType: "Fracture",
+            injuryDescription: [
+              "Pain",
+              "Swelling",
+              "Bruising"
+            ]
+          }
+        },
+      },
+      {
+        id: 2,
+        name: "Appointment"
+      }
+    ],
+  }
+}

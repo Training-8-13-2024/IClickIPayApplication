@@ -29,8 +29,8 @@ import com.iclickipay.bank.R
 import com.iclickipayapplication.ui.screen.data.constants.BALANCE
 import com.iclickipayapplication.ui.screen.data.constants.GREY
 import com.iclickipayapplication.ui.screen.data.constants.HORIZONAL_PADDING
-import com.iclickipayapplication.ui.screen.ui.components.HomeNav
-import com.iclickipayapplication.ui.screen.data.models.InnerNav
+import com.iclickipayapplication.common.ui.components.HomeNav
+import com.iclickipayapplication.common.ui.utils.InnerNav
 
 
 @Composable

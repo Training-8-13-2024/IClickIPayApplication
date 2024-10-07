@@ -1,5 +1,6 @@
 package com.iclickipay.iclickipayapplication.ui.navigation
 
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -14,9 +15,8 @@ import com.iclickipayapplication.ui.TinderNavigation
 import com.iclickipayapplication.ui.screen.HotelScreen
 import com.iclickipayapplication.ui.screen.LearnScreen
 import com.iclickipayapplication.ui.screen.MechanicScreen
-import com.iclickipayapplication.ui.screen.TinderScreen
 import com.iclickipayapplication.ui.screen.ui.BankScreen
-import hemanth.doctor.ui.DoctorScreen
+import iclickipay.doctor.ui.DoctorScreen
 
 enum class Navigation {
     HOME, INFO, LOGIN, MAIN, DOCTOR, SIGNUP, MECHANIC, BANK, TINDER, HOTEL, LEARN
