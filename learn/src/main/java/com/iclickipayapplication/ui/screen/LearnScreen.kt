@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.iclickipay.learn.R
 import com.iclickipayapplication.common.ui.components.CustomButton
+import com.iclickipayapplication.ui.LearnNavigationData
 
 @Composable
 fun LearnScreen(navController: NavHostController) {
@@ -106,7 +107,7 @@ fun LearnScreen(navController: NavHostController) {
                 CustomButton(
                     text = "Let's go",
                     onClick = {
-//                        navController.navigate(TinderNavigationData.SCREEN2.name)
+                        navController.navigate(LearnNavigationData.SCREEN2.name)
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
