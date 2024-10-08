@@ -86,7 +86,7 @@ dependencies {
     testImplementation("androidx.room:room-testing:$room_version")
     implementation("androidx.room:room-paging:$room_version")
 //    hilt
-    val hilt_version = "2.44"
+    val hilt_version = "2.46"
     implementation ("com.google.dagger:hilt-android:$hilt_version")
     kapt ("com.google.dagger:hilt-android-compiler:$hilt_version")
 
