@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.iclickipay.doctor.R
-import com.iclickipayapplication.common.local.models.Patient
-import com.iclickipayapplication.common.local.models.toPatientData
+import com.iclickipay.data.doctor.models.Patient
+import com.iclickipay.data.doctor.models.toPatientData
 import com.iclickipayapplication.common.ui.components.CustomButton
 import iclickipay.doctor.ui.DoctorNavigation
 import iclickipay.doctor.viewmodel.PatientViewModel

@@ -1,7 +1,7 @@
-package com.iclickipayapplication.common.local.models
+package com.iclickipay.data.doctor.models
 
 import com.google.gson.annotations.SerializedName
-import com.iclickipayapplication.common.local.entities.PatientData
+import com.iclickipay.data.doctor.local.entities.PatientData
 import kotlin.reflect.KProperty
 
 data class Patient(

@@ -44,6 +44,7 @@ android {
 dependencies {
 
     implementation(project(":common"))
+    implementation(project(":data"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -57,7 +58,7 @@ dependencies {
     implementation(libs.androidx.runtime.saved.instance.state)
 //    implementation(project(":app"))
 
-implementation("androidx.appcompat:appcompat:1.4.0")
+implementation(libs.androidx.appcompat.v140)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -82,6 +83,7 @@ implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("com.google.maps.android:maps-utils-ktx:5.0.0")
 
 
+
 //    room
     // Room database dependencies
     val room_version = "2.6.1"
@@ -100,5 +102,4 @@ implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("androidx.room:room-guava:$room_version")
     testImplementation("androidx.room:room-testing:$room_version")
     implementation("androidx.room:room-paging:$room_version")
-
 }

@@ -68,7 +68,7 @@ fun HotelMainScreen(
                     painter = painterResource(id = R.drawable.icon_client),
                     contentDescription = "Hotel Screen"
                 )
-                Spacer(modifier = Modifier.padding(30.dp))
+                Spacer(modifier = Modifier.padding(20.dp))
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween,
@@ -79,7 +79,7 @@ fun HotelMainScreen(
                         text = "Motel",
                         style = androidx.compose.ui.text.TextStyle(fontSize = 40.sp)
                     )
-                    Spacer(modifier = Modifier.padding(30.dp))
+                    Spacer(modifier = Modifier.padding(15.dp))
                     Text(
                         modifier = Modifier.fillMaxWidth().padding(20.dp),
                         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lobortis sit amet odio in egestas. Pellen tesque ultricies justo.",

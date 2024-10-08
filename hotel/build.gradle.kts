@@ -43,6 +43,7 @@ android {
 
 dependencies {
 
+    implementation(project(":data"))
     implementation(project(":common"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

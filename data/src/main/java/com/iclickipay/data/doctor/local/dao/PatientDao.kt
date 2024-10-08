@@ -1,11 +1,11 @@
-package com.iclickipayapplication.common.local.dao
+package com.iclickipay.data.doctor.local.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.iclickipayapplication.common.local.entities.PatientData
-import com.iclickipayapplication.common.local.models.Patient
+import com.iclickipay.data.doctor.local.entities.PatientData
+import com.iclickipay.data.doctor.models.Patient
 
 
 @Dao
