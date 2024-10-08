@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+class TinderModule {
     @Provides
     fun getGson(): Gson { //return type is how the hilt will know what to return
         //Function Name itself serves No purpose
