@@ -11,7 +11,7 @@ import com.iclickipay.data.doctor.local.entities.PatientData
 
 
 
-@Database(entities = [PatientData::class], version = 24, exportSchema = true)
+@Database(entities = [PatientData::class], version = 24, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun PatientDao(): PatientDao
 }
