@@ -4,9 +4,9 @@ package iclickipay.doctor.di
 import android.content.Context
 import androidx.room.Room
 import com.iclickipayapplication.common.local.AppDatabase
-import com.iclickipayapplication.common.local.dao.PatientDao
-import com.iclickipayapplication.common.repository.RepoImpl
-import com.iclickipayapplication.common.repository.Repository
+import com.iclickipay.data.doctor.local.dao.PatientDao
+import iclickipay.doctor.data.repository.RepoImpl
+import iclickipay.doctor.data.repository.Repository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

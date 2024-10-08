@@ -1,7 +1,7 @@
-package com.iclickipayapplication.common.repository
+package iclickipay.doctor.data.repository
 
-import com.iclickipayapplication.common.local.dao.PatientDao
-import com.iclickipayapplication.common.local.entities.PatientData
+import com.iclickipay.data.doctor.local.dao.PatientDao
+import com.iclickipay.data.doctor.local.entities.PatientData
 
 interface Repository
 {

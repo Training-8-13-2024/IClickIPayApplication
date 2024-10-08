@@ -1,4 +1,4 @@
-package com.iclickipayapplication.common.local.models
+package com.iclickipay.data.doctor.models
 
 
 import com.google.gson.annotations.SerializedName

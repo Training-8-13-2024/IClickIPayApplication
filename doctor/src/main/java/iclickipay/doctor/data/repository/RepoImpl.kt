@@ -1,8 +1,8 @@
-package com.iclickipayapplication.common.repository
+package iclickipay.doctor.data.repository
 
 import android.util.Log
-import com.iclickipayapplication.common.local.dao.PatientDao
-import com.iclickipayapplication.common.local.entities.PatientData
+import com.iclickipay.data.doctor.local.dao.PatientDao
+import com.iclickipay.data.doctor.local.entities.PatientData
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class RepoImpl @Inject constructor(
     private val patientDao: PatientDao
-) : Repository{
+) : Repository {
     override suspend fun insertPatient(patient: PatientData) {
         Log.i("RepoImpl", "insertPatient: $patient")
         patientDao.insertPatient(patient)

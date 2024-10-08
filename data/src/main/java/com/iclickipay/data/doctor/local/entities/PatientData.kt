@@ -1,10 +1,9 @@
-package com.iclickipayapplication.common.local.entities
+package com.iclickipay.data.doctor.local.entities
 
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Embedded
-import com.iclickipayapplication.common.local.models.Injury
+import com.iclickipay.data.doctor.models.Injury
 
 // Main data entity
 @Entity(tableName = "patient_data")

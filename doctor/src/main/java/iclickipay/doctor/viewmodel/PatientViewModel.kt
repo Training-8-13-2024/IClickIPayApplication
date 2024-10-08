@@ -4,10 +4,10 @@ import androidx.compose.runtime.Recomposer
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.iclickipayapplication.common.local.dao.PatientDao
-import com.iclickipayapplication.common.local.entities.PatientData
-import com.iclickipayapplication.common.local.models.Patient
-import com.iclickipayapplication.common.repository.Repository
+import com.iclickipay.data.doctor.local.dao.PatientDao
+import com.iclickipay.data.doctor.local.entities.PatientData
+import com.iclickipay.data.doctor.models.Patient
+import iclickipay.doctor.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
