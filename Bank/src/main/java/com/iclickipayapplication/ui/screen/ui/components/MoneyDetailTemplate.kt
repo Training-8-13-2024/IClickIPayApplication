@@ -6,12 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
@@ -27,9 +25,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iclickipay.bank.R
-import com.iclickipayapplication.ui.screen.data.constants.BALANCE
 import com.iclickipayapplication.ui.screen.data.constants.GREY
 import com.iclickipayapplication.ui.screen.data.constants.HORIZONAL_PADDING
+import com.iclickipayapplication.ui.screen.data.constants.User
 import com.iclickipayapplication.ui.screen.data.models.Dummy
 
 
@@ -106,7 +104,7 @@ fun MoneyDetailTemplate(
                 Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 Text(text = "Your balance after payment", fontSize = 13.sp, color = Color(GREY))
                 Spacer(modifier = Modifier.padding(vertical = 5.dp))
-                Text(text = if(trasactionType != "debit") "$ ${BALANCE.toFloat() + amount.toFloat()}" else "$ ${BALANCE.toFloat() - amount.toFloat()}", fontSize = 25.sp, color = Color.Black)
+                Text(text = if(trasactionType != "debit") "$ ${User.DEFAULT_User.userBalance.toFloat() + amount.toFloat()}" else "$ ${User.DEFAULT_User.userBalance.toFloat() - amount.toFloat()}", fontSize = 25.sp, color = Color.Black)
 
             }
             Column(

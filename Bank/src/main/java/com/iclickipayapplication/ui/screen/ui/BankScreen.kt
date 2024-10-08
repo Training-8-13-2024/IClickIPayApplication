@@ -34,19 +34,21 @@ fun BankScreen(navController: NavHostController) {
     val screens = listOf(
         Bankscreens.Home,
         Bankscreens.Wallet,
-        Bankscreens.Send,
+        Bankscreens.Send(),
         Bankscreens.Message,
         Bankscreens.Settings
     )
     Scaffold(
         bottomBar = {
-            bottomNavigation(
-                bottomNavItems = screens,
-                currentScreen = currentScreen.value,
-                onScreenSelected = {
-                    currentScreen.value = it
-                }
-            )
+            if (currentScreen.value != Bankscreens.Send()){
+                bottomNavigation(
+                    bottomNavItems = screens,
+                    currentScreen = currentScreen.value,
+                    onScreenSelected = {
+                        currentScreen.value = it
+                    }
+                )
+            }
         },
         modifier = Modifier
             .padding(WindowInsets.navigationBars.asPaddingValues())
@@ -61,10 +63,11 @@ fun BankScreen(navController: NavHostController) {
                 Bankscreens.Wallet -> WalletScreen(innerPadding)
                 Bankscreens.Message -> MessageScreen()
                 Bankscreens.Settings -> SettingScreen()
-                Bankscreens.Send -> SendScreen()
+                is Bankscreens.Send -> SendScreen(
+                    goBack = { currentScreen.value = it }
+                )
             }
         }
-
     }
 }
 

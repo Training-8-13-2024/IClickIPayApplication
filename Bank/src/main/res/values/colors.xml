@@ -3,4 +3,6 @@
     <color name="orange">#FFFF7A1A</color>
     <color name="grey">#FFA6AAB4</color>
     <color name="border_grey">#E8E9EC</color>
+    <color name="atm">#23293F</color>
+    <color name="inactive_grey">#B8FFFFFF</color>
 </resources>

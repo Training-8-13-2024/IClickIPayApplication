@@ -2,6 +2,7 @@ package com.iclickipayapplication.ui.screen.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iclickipay.bank.R
+import com.iclickipayapplication.ui.screen.data.constants.HORIZONAL_PADDING
+import com.iclickipayapplication.ui.screen.data.models.Bankscreens
 import com.iclickipayapplication.ui.screen.ui.components.ButtonComponent
 import com.iclickipayapplication.ui.screen.ui.components.CustomScreen
 import com.iclickipayapplication.ui.screen.data.models.Dummy
@@ -34,25 +38,27 @@ import com.iclickipayapplication.ui.screen.ui.viewmodel.TransactionViewModel
 
 @Composable
 fun SendScreen(
-    Transaction: TransactionViewModel = viewModel()
+    transaction: TransactionViewModel = viewModel(),
+    goBack: (Bankscreens) -> Unit
 ) {
-    val transactions = Transaction.getRegularTransaction()
+    val transactions = transaction.getRegularTransaction()
     val currentScreen = remember { mutableStateOf<MoneyOptions>(MoneyOptions.DEFAULT_SCREEN) }
     Column() {
         when (val screen = currentScreen.value) {
             MoneyOptions.ASK_MONEY -> AskMoneyScreen(
-                Transaction = transactions,
+                transaction = transactions,
                 onClick = { currentScreen.value = it }
             )
 
             MoneyOptions.SEND_MONEY -> SendMoneyScreen(
-                Transaction = transactions,
+                transaction = transactions,
                 onClick = { currentScreen.value = it }
 
             )
 
             MoneyOptions.DEFAULT_SCREEN -> DefaultScreen(
                 onClick = { currentScreen.value = it },
+                goBack = { goBack.invoke(Bankscreens.Home) }
             )
 
             is MoneyOptions.SEND_MONEY_TO_RECIPIENT -> RecipientScreen(
@@ -68,10 +74,10 @@ fun SendScreen(
             )
 
             is MoneyOptions.END_SCREEN -> EndScreen(
-                Transactiontype = screen.Transactiontype,
+                transactionType = screen.Transactiontype,
                 icon = screen.icon,
                 goHome = { currentScreen.value = MoneyOptions.DEFAULT_SCREEN },
-                anotherRequest = {currentScreen.value = MoneyOptions.SEND_MONEY }
+                anotherRequest = { currentScreen.value = MoneyOptions.SEND_MONEY }
             )
 
             is MoneyOptions.SEND_MONEY_TO_SENDER ->
@@ -93,12 +99,26 @@ fun SendScreen(
 @Composable
 fun DefaultScreen(
     onClick: (MoneyOptions) -> Unit,
+    goBack: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color(247, 248, 249, 255))
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 40.dp, horizontal = HORIZONAL_PADDING),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                contentDescription = "backIcon",
+                modifier = Modifier
+                    .size(32.dp)
+                    .clickable { goBack() })
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -131,13 +151,13 @@ fun DefaultScreen(
 
 @Composable
 fun AskMoneyScreen(
-    Transaction: List<Dummy>,
+    transaction: List<Dummy>,
     onClick: (MoneyOptions) -> Unit
 ) {
     var selectedIndex = remember { mutableStateOf(0) }
     val amount = remember { mutableStateOf("") }
     CustomScreen(
-        list = Transaction,
+        list = transaction,
         Header = "Ask money",
         transactionType = "Debtor",
         onBackClick = { onClick(MoneyOptions.DEFAULT_SCREEN) },
@@ -145,7 +165,7 @@ fun AskMoneyScreen(
         onButtonClick = {
             onClick(
                 MoneyOptions.SEND_MONEY_TO_RECIPIENT(
-                    Transaction[selectedIndex.value],
+                    transaction[selectedIndex.value],
                     amount.value
                 )
             )
@@ -154,11 +174,13 @@ fun AskMoneyScreen(
         onAmountChange = { amount.value = it },
         onSelectedChange = { selectedIndex.value = it }
     )
+
 }
+
 
 @Composable
 fun SendMoneyScreen(
-    Transaction: List<Dummy>,
+    transaction: List<Dummy>,
     onClick: (MoneyOptions) -> Unit
 ) {
     var selectedIndex = remember { mutableStateOf(0) }
@@ -166,14 +188,14 @@ fun SendMoneyScreen(
 
 
     CustomScreen(
-        list = Transaction,
+        list = transaction,
         Header = "Send Money",
         transactionType = "Creditor",
         onBackClick = { onClick(MoneyOptions.DEFAULT_SCREEN) },
         selectedIndex = selectedIndex.value,
         onButtonClick = {
             onClick(
-                MoneyOptions.SEND_MONEY_TO_SENDER(Transaction[selectedIndex.value], amount.value)
+                MoneyOptions.SEND_MONEY_TO_SENDER(transaction[selectedIndex.value], amount.value)
             )
         },
         amount = amount.value,
@@ -184,7 +206,7 @@ fun SendMoneyScreen(
 
 @Composable
 fun EndScreen(
-    Transactiontype: String,
+    transactionType: String,
     icon: Int,
     goHome: () -> Unit,
     anotherRequest: () -> Unit
@@ -200,7 +222,7 @@ fun EndScreen(
             contentDescription = "notificationicon",
             modifier = Modifier.size(350.dp),
         )
-        if (Transactiontype == "credit") {
+        if (transactionType == "credit") {
             Text(
                 text = "Money sent",
                 color = Color.Black,

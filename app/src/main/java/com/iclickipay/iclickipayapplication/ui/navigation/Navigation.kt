@@ -32,7 +32,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Navigation.HOME.name
+        startDestination = Navigation.BANK.name
     ) {
         composable(Navigation.HOME.name) {
             Home(navController)

@@ -8,13 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.iclickipayapplication.ui.screen.data.models.Dummy
 import com.iclickipayapplication.ui.screen.ui.components.SearchInput
 import com.iclickipayapplication.ui.screen.ui.components.TransactionCard
 import com.iclickipayapplication.ui.screen.ui.viewmodel.TransactionViewModel
 
 @Composable
 fun SentScreen(
-    TranactionViewModel: TransactionViewModel = viewModel()
+    TranactionViewModel: TransactionViewModel = viewModel(),
+    onClick: (Dummy) -> Unit
 ) {
     val transactions = TranactionViewModel.getTransaction("debit")
     Column {
@@ -30,7 +32,12 @@ fun SentScreen(
             transactions.forEach { transaction ->
                 Column {
                     Spacer(modifier = Modifier.padding(vertical = 5.dp))
-                    TransactionCard(transaction = transaction)
+                    TransactionCard(
+                        transaction = transaction,
+                        onClick = {
+                            onClick(transaction)
+                        }
+                    )
                 }
             }
             Spacer(modifier = Modifier.padding(vertical = 10.dp))

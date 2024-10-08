@@ -2,6 +2,7 @@ package com.iclickipayapplication.ui.screen.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,12 +28,14 @@ import com.iclickipayapplication.ui.screen.data.models.Dummy
 @Composable
 fun TransactionCard(
     transaction: Dummy,
-    showInfo: Boolean = true
+    showInfo: Boolean = true,
+    onClick: (Dummy) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = Color.White)
+            .clickable { onClick(transaction) }
             .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

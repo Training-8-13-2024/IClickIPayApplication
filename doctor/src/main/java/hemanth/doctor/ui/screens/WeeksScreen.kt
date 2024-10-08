@@ -232,6 +232,7 @@ fun CustomBarSlider(value: Float, onValueChange: (Float) -> Unit) {
                 activeTrackColor = Color.Transparent, // Hide track to show bars
                 inactiveTrackColor = Color.Transparent
             ),
+            enabled = true,
             thumb = {
                 value.roundToInt().let { thumbValue ->
                     Box(

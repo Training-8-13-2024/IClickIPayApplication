@@ -19,8 +19,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,8 +30,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.text.isDigitsOnly
 import com.iclickipay.bank.R
+import com.iclickipayapplication.ui.screen.data.constants.GREY
+import com.iclickipayapplication.ui.screen.data.constants.HORIZONAL_PADDING
 import com.iclickipayapplication.ui.screen.data.models.Dummy
 
 @Composable
@@ -62,10 +61,6 @@ fun CustomScreen(
             .background(color = Color(247, 248, 249, 255))
             .verticalScroll(rememberScrollState())
     ) {
-        val HORIZONAL_PADDING = 30.dp
-        val VERTICAL_PADDING = 40.dp
-        val GREY = 0xFF757F8C
-
 
         Row(
             modifier = Modifier
@@ -74,13 +69,11 @@ fun CustomScreen(
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+            Icon(painter = painterResource(id = R.drawable.baseline_arrow_back_24),
                 contentDescription = "backIcon",
                 modifier = Modifier
                     .size(32.dp)
-                    .clickable { onBackClick() }
-            )
+                    .clickable { onBackClick() })
         }
         Row(
             modifier = Modifier
@@ -90,10 +83,7 @@ fun CustomScreen(
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = Header,
-                color = Color.Black,
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold
+                text = Header, color = Color.Black, fontSize = 25.sp, fontWeight = FontWeight.Bold
             )
 
             Image(
@@ -111,11 +101,7 @@ fun CustomScreen(
         ) {
             Text(text = "Enter contact", fontSize = 13.sp, color = Color(GREY))
             Spacer(modifier = Modifier.padding(vertical = 5.dp))
-            Input(
-                inputName = "Name, email or phone number",
-                value = "",
-                onValueChange = {}
-            )
+            Input(inputName = "Name, email or phone number", value = "", onValueChange = {})
             Spacer(modifier = Modifier.padding(vertical = 20.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -124,15 +110,11 @@ fun CustomScreen(
             ) {
                 Text(text = transactionType, fontSize = 13.sp, color = Color(GREY))
                 if (list.size > 7) Text(
-                    text = "Show all",
-                    fontSize = 13.sp,
-                    color = Color(0xFF1140C9)
+                    text = "Show all", fontSize = 13.sp, color = Color(0xFF1140C9)
                 )
             }
             SliderComponent(
-                sliders = list,
-                selectedIndex = selectedIndex,
-                onClick = onSelectedChange
+                sliders = list, selectedIndex = selectedIndex, onClick = onSelectedChange
             )
             Spacer(modifier = Modifier.padding(vertical = 10.dp))
             Column(
@@ -163,7 +145,6 @@ fun CustomScreen(
                     enabled = amount.isNotEmpty() && amount.toFloatOrNull() != null
                 )
             }
-
         }
     }
 }

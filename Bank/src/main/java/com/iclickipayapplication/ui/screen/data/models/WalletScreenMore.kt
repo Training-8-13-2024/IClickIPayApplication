@@ -1,5 +1,6 @@
 package com.iclickipayapplication.ui.screen.data.models
 
-enum class WalletScreenMore() {
-    DEFAULT_SCREEN, MORE_INFO
+sealed class WalletScreenMore(){
+    object DEFAULT_SCREEN: WalletScreenMore()
+    data class MORE_INFO(val transaction: Dummy): WalletScreenMore()
 }
