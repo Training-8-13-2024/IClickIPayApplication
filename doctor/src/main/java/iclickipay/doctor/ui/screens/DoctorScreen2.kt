@@ -1,5 +1,6 @@
 package iclickipay.doctor.ui.screens
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -18,21 +19,29 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.iclickipay.doctor.R
+import com.iclickipayapplication.common.local.models.Patient
+import com.iclickipayapplication.common.local.models.toPatientData
 import com.iclickipayapplication.common.ui.components.CustomButton
 import iclickipay.doctor.ui.DoctorNavigation
+import iclickipay.doctor.viewmodel.PatientViewModel
 
 
 @Composable
 fun DoctorScreen2(
-    navController: NavHostController? = null
+    navController: NavHostController? = null,
+    viewModel: PatientViewModel = hiltViewModel()
 ) {
+//    val context = LocalContext.current as Activity
 
+    val patient = Patient()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -46,15 +55,21 @@ fun DoctorScreen2(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    modifier = Modifier.size(45.dp). padding(0.dp).clickable { navController?.popBackStack() },
-                    painter = painterResource(id = R.drawable.back_arrow), contentDescription = "Back")
+                    modifier = Modifier
+                        .size(45.dp)
+                        .padding(0.dp)
+                        .clickable { navController?.popBackStack() },
+                    painter = painterResource(id = R.drawable.back_arrow),
+                    contentDescription = "Back"
+                )
             }
         }
-    ) {
-        innerPadding ->
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .padding(innerPadding))
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(innerPadding)
+        )
         {
             Column(
                 modifier = Modifier
@@ -98,6 +113,8 @@ fun DoctorScreen2(
                     CustomButton(
                         text = "Make the diagnosis",
                         onClick = {
+                            patient?.option = 0
+                            viewModel.insertPatient(patient.toPatientData())
                             navController?.navigate(DoctorNavigation.GENDER.name)
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -107,6 +124,8 @@ fun DoctorScreen2(
                     CustomButton(
                         text = "Make an appointment",
                         onClick = {
+                            patient?.option = 1
+                            viewModel.insertPatient(patient.toPatientData())
                             navController?.navigate(DoctorNavigation.GENDER.name)
                         },
                         modifier = Modifier.fillMaxWidth()

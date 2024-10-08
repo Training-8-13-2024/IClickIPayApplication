@@ -1,4 +1,4 @@
-package com.iclickipayapplication.common.ui.utils
+package com.iclickipayapplication.ui.screen.data.models
 
 import com.iclickipayapplication.ui.screen.data.interfaces.Navigation
 

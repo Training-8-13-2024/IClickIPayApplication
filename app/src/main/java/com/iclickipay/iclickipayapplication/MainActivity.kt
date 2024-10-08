@@ -10,6 +10,7 @@ import com.iclickipay.iclickipayapplication.ui.navigation.Navigation
 import com.iclickipay.iclickipayapplication.ui.theme.IClickIPayApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
