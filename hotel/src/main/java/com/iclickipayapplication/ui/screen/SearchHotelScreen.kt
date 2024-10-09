@@ -25,10 +25,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDateRangePickerState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,15 +42,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.iclickipay.hotel.R
+import com.iclickipayapplication.data.HotelModel
+import com.iclickipayapplication.ui.components.DateRoomsPicker
 import com.iclickipayapplication.ui.components.RoomPickerDialog
-import com.iclickipayapplication.ui.components.SampleDatePickerView
+import com.iclickipayapplication.ui.components.HotelDatePicker
 import com.iclickipayapplication.ui.components.SearchCard
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,14 +62,64 @@ fun SearchHotelScreen(
     navController: NavHostController? = null,
     lesson: String = "Leason", level: String? = "Level"
 ) {
+
+
     var location by remember { mutableStateOf("Johannesburg") }
-    var checkInDate by remember { mutableStateOf(LocalDate.of(2024, 3, 20)) }
-    var checkOutDate by remember { mutableStateOf(LocalDate.of(2024, 3, 22)) }
-    var rooms by remember { mutableStateOf(1) }
-    var adults by remember { mutableStateOf(2) }
+//    var checkInDate by remember { mutableStateOf(LocalDate.of(2024, 3, 20)) }
+//    var checkOutDate by remember { mutableStateOf(LocalDate.of(2024, 3, 22)) }
+
+    var rooms = remember { mutableStateOf(1) }
+    var adults = remember { mutableStateOf(1) }
+    var kids = remember { mutableStateOf(0) }
+
+    var checkInDate = remember { mutableStateOf(LocalDate.of(2024, 3, 20)) }
+    var checkOutDate = remember { mutableStateOf(LocalDate.of(2024, 3, 22)) }
+
     var showDatePicker by remember { mutableStateOf(false) }
     var showRoomDialog by remember { mutableStateOf(false) }
-    var showDialog by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+
+    val hotelImages = listOf(
+        R.drawable.image,
+        R.drawable.image2,
+        R.drawable.image3,
+        R.drawable.image4,
+    )
+
+    val hotelList = listOf(
+        HotelModel(
+            name = "Ressort Hotel",
+            rating = 4.5,
+            distance = 500,
+            price = 15.0,
+            image = hotelImages[0],
+            location = "Johannesburg"
+        ),
+        HotelModel(
+            name = "Windsor Hotel",
+            rating = 4.3,
+            distance = 500,
+            price = 80.0,
+            image = hotelImages[1],
+            location = "Johannesburg"
+        ),
+        HotelModel(
+            name = "Hilton Hotel",
+            rating = 4.0,
+            distance = 600,
+            price = 120.0,
+            image = hotelImages[2],
+            location = "Johannesburg"
+        ),
+        HotelModel(
+            name = "Marriot Hotel",
+            rating = 4.8,
+            distance = 700,
+            price = 15.0,
+            image = hotelImages[3],
+            location = "Johannesburg"
+        ),
+    )
 
     Scaffold(
         topBar = {
@@ -99,7 +154,9 @@ fun SearchHotelScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             )
             {
-                Box {
+                Box(
+
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.image2),
                         contentDescription = "Header Image",
@@ -111,132 +168,23 @@ fun SearchHotelScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .align(Alignment.BottomCenter)
+                            .padding(15.dp)
                             .background(
-                                Color.White.copy(alpha = 0.8f),
+                                Color.White.copy(alpha = 0.9f),
                                 shape = RoundedCornerShape(8.dp)
-                            )
-                            .align(Alignment.BottomCenter),
+                            ),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-
-
-                            Row(
-                                modifier = Modifier,
-                                horizontalArrangement = Arrangement.Start,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(text = "Johannesburg", fontWeight = FontWeight.Bold)
-
-                            }
-                            Row(
-                                modifier = Modifier,
-                                horizontalArrangement = Arrangement.End,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = "Places",
-                                    fontWeight = FontWeight.Normal,
-                                    color = Color.Gray
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Icon(
-                                    painter = painterResource(id = R.drawable.icon_places),
-                                    contentDescription = "Arrow Down",
-                                    tint = Color(0xFFFF6F00),
-                                    modifier = Modifier.size(20.dp)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceAround,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .clickable {
-                                        showDatePicker = true
-                                    },
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = "CHOOSE DATES",
-                                    modifier = Modifier
-                                        .padding(15.dp)
-                                )
-
-                            }
-                            Row(
-                                modifier = Modifier
-                                    .clickable {
-                                        showRoomDialog = true
-                                    },
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = "NUMBERS OF ROOMS",
-                                    modifier = Modifier
-                                        .padding(15.dp)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceAround
-                        ) {
-                            Text("${checkInDate} - ${checkOutDate}", fontWeight = FontWeight.Bold)
-
-                            Text("$level", fontWeight = FontWeight.Bold)
-                        }
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
-                        ) {
-                            OutlinedTextField(
-                                value = "",
-                                onValueChange = {},
-                                label = { Text("Search location / name country") },
-                                trailingIcon = {
-                                    Icon(
-                                        Icons.Default.Search,
-                                        contentDescription = "Search",
-                                        tint = Color.Gray
-                                    )
-                                },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 16.dp),
-
-
-                                )
-
-                            Button(
-                                onClick = { /* Handle search */ },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(56.dp)
-                                    .padding(horizontal = 20.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFFFF6F00),
-                                    contentColor = Color.White
-                                )
-                            ) {
-                                Text(text = "Search hotels", fontSize = 18.sp)
-                            }
-                        }
+                        DateRoomsPicker(
+                            checkInDate = checkInDate.value,
+                            checkOutDate = checkOutDate.value,
+                            rooms = rooms.value,
+                            onShowDatePickerChange = { showDatePicker = it },
+                            onShowRoomPickerChange = { showRoomDialog = it },
+                        )
                     }
+
                 }
                 Row(
                     modifier = Modifier
@@ -278,25 +226,36 @@ fun SearchHotelScreen(
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
 
 
-                Text(
-                    text = "Recommended Hotels",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
+                    Text(
+                        text = "Recommended Hotels",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
                     Icon(
                         Icons.Default.Settings,
                         contentDescription = "Settings",
                         tint = Color(0xFFFF6F00),
                     )
-            }
+                }
                 Spacer(modifier = Modifier.height(8.dp))
-                SearchCard()
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    hotelList.forEach { hotel ->
+                        SearchCard(hotel = hotel)
+                    }
+                }
+
             }
         }
 
@@ -305,29 +264,52 @@ fun SearchHotelScreen(
         Spacer(modifier = Modifier.padding(innerPa))
         // Date Picker Dialog
         if (showDatePicker) {
-
-            SampleDatePickerView()
+            HotelDatePicker(
+                dateRangePickerState = dateRangePickerState,
+                onDismiss = { showDatePicker = false },
+                onConfirm = {
+                    checkInDate.value = it.selectedStartDateMillis?.let { it1 ->
+                        convertMillisToLocalDate(
+                            it1
+                        )
+                    }
+                    checkOutDate.value = it.selectedEndDateMillis?.let { it1 ->
+                        convertMillisToLocalDate(
+                            it1
+                        )
+                    }
+                    showDatePicker = false
+                }
+            )
         }
 
         // Room and Adult Picker Dialog
         if (showRoomDialog) {
-            RoomPickerDialog(
-                rooms = rooms,
-                adults = adults,
-                onDismiss = { showRoomDialog = false },
-                onConfirm = { selectedRooms, selectedAdults ->
-                    rooms = selectedRooms
-                    adults = selectedAdults
-                    showRoomDialog = false
-                }
-            )
+            ModalBottomSheet(
+                modifier = Modifier.fillMaxWidth(),
+                onDismissRequest = { showRoomDialog = false },
+                sheetState = sheetState,
+            ) {
+                RoomPickerDialog(
+                    rooms = rooms,
+                    adults = adults,
+                    kids = kids,
+                    onDismiss = { showRoomDialog = false },
+                    onConfirm = { selectedRooms, selectedAdults, selectedKids ->
+                        rooms.value = selectedRooms
+                        adults.value = selectedAdults
+                        kids.value = selectedKids
+                        showRoomDialog = false
+                    }
+                )
+            }
         }
     }
 }
 
-
-@Composable
-@Preview
-fun HotelScreen1Preview() {
-    SearchHotelScreen()
+fun convertMillisToLocalDate(millis: Long): LocalDate {
+    return Instant.ofEpochMilli(millis)
+        .atZone(ZoneId.systemDefault()) // Convert to system's default timezone
+        .toLocalDate() // Convert to LocalDate
 }
+

@@ -1,6 +1,9 @@
 package com.iclickipayapplication.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,91 +11,242 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
+import com.iclickipayapplication.common.ui.components.CustomButton
 
 @Composable
-fun RoomPickerDialog(rooms: Int, adults: Int, onDismiss: () -> Unit, onConfirm: (rooms: Int, adults: Int) -> Unit) {
-    var tempRooms by remember { mutableStateOf(rooms) }
-    var tempAdults by remember { mutableStateOf(adults) }
+fun RoomPickerDialog(
+    rooms: MutableState<Int>,
+    adults: MutableState<Int>,
+    kids: MutableState<Int>,
+    onDismiss: () -> Unit,
+    onConfirm: (rooms: Int, kids: Int, adults: Int) -> Unit
+) {
 
-    Dialog(onDismissRequest = onDismiss) {
+    Box(
+        modifier = Modifier.background(Color.White),
+        contentAlignment = Alignment.BottomCenter
+    ) {
         Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.medium
+            modifier = Modifier
         ) {
-            Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Select Rooms & Adults", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(8.dp))
+            Column(
+                modifier = Modifier
+                    .padding(0.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Numbers of rooms",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(8.dp)
+                )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
-                // Rooms Selection
+//                Rooms, Adults, Kids
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = "Rooms")
                     Row {
-                        Button(onClick = { if (tempRooms > 1) tempRooms-- }) {
-                            Text(text = "-")
+                        Column(
+                            modifier = Modifier.padding(10.dp),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(text = "Rooms", color = Color(0xFFFF7A1A))
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Text(text = "${rooms.value}")
                         }
-                        Text(
-                            text = "$tempRooms",
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                        )
-                        Button(onClick = { tempRooms++ }) {
-                            Text(text = "+")
+                    }
+                    Row {
+                        Column(
+                            modifier = Modifier.padding(10.dp),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(text = "Adults", color = Color(0xFFFF7A1A))
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Text(text = "${adults.value}")
+                        }
+                    }
+                    Row {
+                        Column(
+                            modifier = Modifier.padding(10.dp),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(text = "Kids", color = Color(0xFFFF7A1A))
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Text(text = "${kids.value}")
                         }
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+//
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Numbers of persons",
+                        color = Color.LightGray,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
 
-                // Adults Selection
-                Row(
+                LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "Adults")
-                    Row {
-                        Button(onClick = { if (tempAdults > 1) tempAdults-- }) {
-                            Text(text = "-")
-                        }
-                        Text(
-                            text = "$tempAdults",
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                    items(rooms.value) { item ->
+
+                        RoomCard(
+                            rooms = item,
+                            adults = adults.value,
+                            kids = kids.value,
+                            onAdultsChange = { new ->
+                                adults.value = new
+                            },
+                            onKidsChange = { new ->
+                                kids.value = new
+                            }
                         )
-                        Button(onClick = { tempAdults++ }) {
-                            Text(text = "+")
+                    }
+
+                    // Rooms Selection
+
+
+                    item {
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Column(
+                            modifier = Modifier
+                                .padding(0.dp)
+                                .width(250.dp)
+                                .clickable{
+                                    rooms.value += 1
+                                }
+                                .height(150.dp)
+                                .background(
+                                    Color(0xFFF9FAFB),
+                                    MaterialTheme.shapes.large
+                                )
+                                .drawBehind {
+                                    // Convert Dp to Px
+                                    val strokeWidth = 2.dp.toPx()
+                                    val dash = 10.dp.toPx()
+                                    val gap = 10.dp.toPx()
+
+                                    // Define the stroke style with a dashed effect
+                                    val paint = Stroke(
+                                        width = strokeWidth,
+                                        pathEffect = PathEffect.dashPathEffect(
+                                            floatArrayOf(dash, gap), 0f
+                                        ),
+                                        cap = StrokeCap.Round
+                                    )
+
+                                    // Get the size of the canvas
+                                    val width = size.width
+                                    val height = size.height
+
+                                    // Draw dashed border with rounded corners
+                                    drawRoundRect(
+                                        color = Color(0xFFD6D9E4),
+                                        topLeft = Offset(0f, 0f),
+                                        size = size,
+                                        style = paint,
+                                        cornerRadius = androidx.compose.ui.geometry.CornerRadius(
+                                            16.dp.toPx(),
+                                            16.dp.toPx()
+                                        )
+                                    )
+                                },
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .background(Color(0xFF10C971), MaterialTheme.shapes.extraLarge)
+                            ) {
+                                Icon(
+                                    Icons.Default.Add,
+                                    contentDescription = "Add Button",
+                                    tint = Color.White,
+                                    modifier = Modifier.padding(10.dp)
+                                )
+
+                            }
+                            Column(
+                                modifier = Modifier.padding(10.dp),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "Add",
+                                    color = Color.DarkGray,
+                                    style = MaterialTheme.typography.labelMedium
+                                )
+                                Text(
+                                    text = "New Room",
+                                    color = Color.DarkGray,
+                                    style = MaterialTheme.typography.labelMedium
+                                )
+                            }
                         }
+                        Spacer(modifier = Modifier.width(15.dp))
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Row {
-                    Button(onClick = { onConfirm(tempRooms, tempAdults) }) {
-                        Text(text = "Confirm")
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Button(onClick = onDismiss) {
-                        Text(text = "Cancel")
-                    }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                ) {
+                    CustomButton(text = "Submit", onClick = { /*TODO*/ })
                 }
             }
         }
     }
+}
+
+
+@Composable
+@Preview
+fun RoomPickerDialogPreview() {
+    RoomPickerDialog(
+        rooms = mutableStateOf(1),
+        adults = mutableStateOf(1),
+        kids = mutableStateOf(1),
+        onDismiss = { },
+        onConfirm = { rooms, kids, adults -> }
+    )
 }
