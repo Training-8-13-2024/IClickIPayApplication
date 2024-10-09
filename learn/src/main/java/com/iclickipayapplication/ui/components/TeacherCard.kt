@@ -1,6 +1,7 @@
 package com.iclickipayapplication.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,15 +20,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.iclickipay.data.model.learn.TeacherDataItemItemModel
 import com.iclickipay.learn.R
+import com.iclickipayapplication.ui.LearnNavigationData
 
 
 @Composable
-fun TeacherCard() {
+fun TeacherCard(navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable { navController.navigate(LearnNavigationData.BOOKING.name) },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
