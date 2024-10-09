@@ -20,10 +20,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -32,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.iclickipayapplication.common.ui.components.CustomButton
 
@@ -42,7 +37,8 @@ fun RoomPickerDialog(
     adults: MutableState<Int>,
     kids: MutableState<Int>,
     onDismiss: () -> Unit,
-    onConfirm: (rooms: Int, kids: Int, adults: Int) -> Unit
+    onConfirm: (rooms: Int, kids: Int, adults: Int) -> Unit,
+    onClose: () -> Unit
 ) {
 
     Box(
@@ -231,7 +227,10 @@ fun RoomPickerDialog(
                         .fillMaxWidth()
                         .padding(horizontal = 30.dp)
                 ) {
-                    CustomButton(text = "Submit", onClick = { /*TODO*/ })
+                    CustomButton(text = "Submit", onClick = {
+                        onConfirm(rooms.value, kids.value, adults.value)
+                        onClose()
+                    })
                 }
             }
         }
@@ -239,14 +238,14 @@ fun RoomPickerDialog(
 }
 
 
-@Composable
-@Preview
-fun RoomPickerDialogPreview() {
-    RoomPickerDialog(
-        rooms = mutableStateOf(1),
-        adults = mutableStateOf(1),
-        kids = mutableStateOf(1),
-        onDismiss = { },
-        onConfirm = { rooms, kids, adults -> }
-    )
-}
+//@Composable
+//@Preview
+//fun RoomPickerDialogPreview() {
+//    RoomPickerDialog(
+//        rooms = mutableStateOf(1),
+//        adults = mutableStateOf(1),
+//        kids = mutableStateOf(1),
+//        onDismiss = { },
+//        onConfirm = { rooms, kids, adults -> }
+//    )
+//}

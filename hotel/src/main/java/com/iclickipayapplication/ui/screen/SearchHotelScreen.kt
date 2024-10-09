@@ -19,14 +19,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDateRangePickerState
@@ -294,6 +290,7 @@ fun SearchHotelScreen(
                     rooms = rooms,
                     adults = adults,
                     kids = kids,
+                    onClose = { showRoomDialog = false },
                     onDismiss = { showRoomDialog = false },
                     onConfirm = { selectedRooms, selectedAdults, selectedKids ->
                         rooms.value = selectedRooms
