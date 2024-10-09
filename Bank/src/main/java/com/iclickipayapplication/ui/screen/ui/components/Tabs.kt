@@ -22,13 +22,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iclickipay.bank.R
-import com.iclickipayapplication.ui.screen.data.interfaces.Navigation
+import com.iclickipayapplication.ui.screen.data.interfaces.NavigationIntBank
 
 @Composable
 fun Tabs(
-    items: List<Navigation>,
-    currentScreen: Navigation,
-    onScreenSelected: (Navigation) -> Unit,
+    items: List<NavigationIntBank>,
+    currentScreen: NavigationIntBank,
+    onScreenSelected: (NavigationIntBank) -> Unit,
     showBorder: Boolean = true,
     activeColor: Color = Color.Black,
     inactiveColor: Color = Color.Gray,

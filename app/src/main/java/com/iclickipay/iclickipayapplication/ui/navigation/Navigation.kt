@@ -23,8 +23,7 @@ enum class Navigation {
     HOME, INFO, LOGIN, MAIN, DOCTOR, SIGNUP, MECHANIC, BANK, TINDER, HOTEL, LEARN
 }
 
-sealed class NavigationPaths {
-
+sealed class NavigationPaths() {
 }
 
 @Composable
@@ -33,7 +32,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Navigation.BANK.name
+        startDestination = Navigation.MECHANIC.name
     ) {
         composable(Navigation.HOME.name) {
             Home(navController)

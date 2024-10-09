@@ -36,7 +36,7 @@ import com.iclickipay.bank.R
 import com.iclickipayapplication.ui.screen.data.constants.GREY
 import com.iclickipayapplication.ui.screen.data.constants.HORIZONAL_PADDING
 import com.iclickipayapplication.ui.screen.data.constants.User
-import com.iclickipayapplication.ui.screen.data.interfaces.Navigation
+import com.iclickipayapplication.ui.screen.data.interfaces.NavigationIntBank
 import com.iclickipayapplication.ui.screen.data.models.Dummy
 import com.iclickipayapplication.ui.screen.data.models.InnerNav
 import com.iclickipayapplication.ui.screen.data.models.WalletScreenMore
@@ -144,7 +144,7 @@ fun DefaultScreenWallet(
         InnerNav.Sent,
         InnerNav.Received
     )
-    val currentItem = remember { mutableStateOf<Navigation>(InnerNav.All) }
+    val currentItem = remember { mutableStateOf<NavigationIntBank>(InnerNav.All) }
     val threshold = 300f
     val dragAmount = remember { mutableStateOf(0f) }
     Column(

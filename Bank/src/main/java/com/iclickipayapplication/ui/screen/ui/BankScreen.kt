@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import com.iclickipayapplication.common.constants.BACKGROUND_COLOR
 import com.iclickipayapplication.ui.screen.ui.components.bottomNavigation
 import com.iclickipayapplication.ui.screen.data.models.Bankscreens
 import com.iclickipayapplication.ui.screen.ui.screens.HomeScreen
@@ -56,7 +57,7 @@ fun BankScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color(247, 248, 249, 255))
+                .background(color = BACKGROUND_COLOR)
         ) {
             when (currentScreen.value) {
                 Bankscreens.Home -> HomeScreen()
