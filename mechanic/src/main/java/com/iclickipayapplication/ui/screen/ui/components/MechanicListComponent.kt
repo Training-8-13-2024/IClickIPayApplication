@@ -1,5 +1,11 @@
 package com.iclickipayapplication.ui.screen.ui.components
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.with
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -21,6 +28,8 @@ import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -77,7 +86,7 @@ fun MechanicListComponent(
                     mechanic = mechanic,
                     onMechanicClick = {
                         onMechanicClick(mechanic)
-                    }
+                    },
                 )
             }
 
@@ -85,11 +94,13 @@ fun MechanicListComponent(
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MechanicCardComponent(
     mechanic: Mechanic,
     onMechanicClick: () -> Unit = {}
 ) {
+    val liked = remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .padding(vertical = 10.dp)
@@ -123,10 +134,23 @@ fun MechanicCardComponent(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.heart),
-                    contentDescription = "Favorite",
-                )
+                AnimatedContent(
+                    targetState = liked.value,
+                    transitionSpec = {
+                        fadeIn(animationSpec = tween (300)) with fadeOut(animationSpec = tween(300))
+                    }
+                ) { targetState ->
+                    val iconResource = if (targetState) R.drawable.heart_filled else R.drawable.heart
+                    Image(
+                        painter = painterResource(iconResource),
+                        contentDescription = "Favorite",
+                        modifier = Modifier
+                            .size(24.dp) // Adjust size as needed
+                            .clickable {
+                                liked.value = !liked.value
+                            }
+                    )
+                }
             }
         }
         Column(
@@ -141,11 +165,15 @@ fun MechanicCardComponent(
             ) {
                 Column {
                     Text(text = mechanic.name)
-                    Text(text = mechanic.location.split(",")[1], fontSize = 12.sp, color = Color.Gray)
+                    Text(
+                        text = mechanic.location.split(",")[1],
+                        fontSize = 12.sp,
+                        color = Color.Gray
+                    )
                 }
                 Column {
-                    mechanic.specialization.forEach {spec->
-                            Text(text = spec, fontSize = 12.sp, color = Color.Gray)
+                    mechanic.specialization.forEach { spec ->
+                        Text(text = spec, fontSize = 12.sp, color = Color.Gray)
                     }
                 }
             }
