@@ -31,7 +31,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Navigation.MAIN.name
+        startDestination = Navigation.HOTEL.name
     ) {
         composable(Navigation.HOME.name) {
             Home(navController)
