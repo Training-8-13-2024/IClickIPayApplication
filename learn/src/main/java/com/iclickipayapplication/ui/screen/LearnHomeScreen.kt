@@ -96,7 +96,14 @@ fun LearnHomeScreen (navController: NavHostController, lesson: String, level: St
                             .align(Alignment.BottomCenter),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Johannesburg, 1 Road Ubuntu", fontWeight = FontWeight.Bold)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ){
+                            Text(text = "Johannesburg, 1 Road Ubuntu", fontWeight = FontWeight.Bold)
+                            Icon(painter = painterResource(id = R.drawable.location), contentDescription = "Location", modifier = Modifier.size(30.dp).clickable { navController.navigate(LearnNavigationData.MAP.name) })
+                        }
+
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceAround
