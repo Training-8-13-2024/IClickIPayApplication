@@ -1,6 +1,5 @@
 package com.iclickipay.iclickipayapplication.ui.navigation
 
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,8 +12,7 @@ import com.iclickipay.iclickipayapplication.ui.screens.MainScreen
 import com.iclickipay.iclickipayapplication.ui.screens.SignUpScreen
 import com.iclickipayapplication.ui.LearnNavigation
 import com.iclickipayapplication.ui.TinderNavigation
-import com.iclickipayapplication.ui.screen.HotelScreen
-import com.iclickipayapplication.ui.screen.LearnScreen
+import com.iclickipayapplication.ui.HotelScreen
 import com.iclickipayapplication.ui.screen.MechanicScreen
 import com.iclickipayapplication.ui.screen.ui.BankScreen
 import iclickipay.doctor.ui.DoctorScreen
@@ -23,7 +21,8 @@ enum class Navigation {
     HOME, INFO, LOGIN, MAIN, DOCTOR, SIGNUP, MECHANIC, BANK, TINDER, HOTEL, LEARN
 }
 
-sealed class NavigationPaths() {
+sealed class NavigationPaths {
+
 }
 
 @Composable
@@ -32,7 +31,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Navigation.MECHANIC.name
+        startDestination = Navigation.HOTEL.name
     ) {
         composable(Navigation.HOME.name) {
             Home(navController)

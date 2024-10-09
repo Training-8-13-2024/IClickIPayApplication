@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iclickipay.data.model.tinder.ProductsModelItemModel
-import com.iclickipay.data.repository.tinder.Repository
+import com.iclickipay.data.repository.learn.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

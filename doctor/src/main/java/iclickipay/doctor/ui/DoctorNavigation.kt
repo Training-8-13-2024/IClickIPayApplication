@@ -1,5 +1,6 @@
 package iclickipay.doctor.ui
 
+import MapScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
@@ -21,7 +22,7 @@ import iclickipay.doctor.ui.screens.WeeksScreen
 
 
 enum class DoctorNavigation {
-    SCREEN1, SCREEN2, WEEKS, QUESTIONNAIRE, SYMPTOMS, GENDER, AGE, REGION, INJURY, INJURYQUESTION1, INJURYQUESTION2, REQUIREATTENTION
+    SCREEN1, SCREEN2, WEEKS, QUESTIONNAIRE, SYMPTOMS, GENDER, AGE, REGION, INJURY, INJURYQUESTION1, INJURYQUESTION2, REQUIREATTENTION, MAP
 }
 
 @Composable
@@ -29,6 +30,10 @@ fun DoctorScreen(navController: NavHostController? = null) {
     // Create a separate NavController for Doctor navigation
     val doctorNavController = rememberNavController()
 
+//    create a function to navigate to teh home screen on navController
+    fun navigateToHome() {
+        navController?.navigate("HOME")
+    }
 
     NavHost(
         navController = doctorNavController,
@@ -98,6 +103,12 @@ fun DoctorScreen(navController: NavHostController? = null) {
         )
         {
             RequireAttentionScreen(doctorNavController)
+        }
+        composable(
+            DoctorNavigation.MAP.name,
+        )
+        {
+            MapScreen(doctorNavController)
         }
     }
 }

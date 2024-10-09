@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,48 +48,47 @@ fun WeeksScreen(
     doctorNavController: NavHostController? = null
 ) {
 
-val colorGradient = listOf(
-    Color(0xFFFFDA77),
-    Color(0xFFFBCB6F),
-    Color(0xFFFBBB6F),
-    Color(0xFFFBB26F),
-    Color(0xFFFBAA6F),
-    Color(0xFFFB996F),
-    Color(0xFFFB886F),
-    Color(0xFFFB806F),
-    Color(0xFFFB6F6F),
-    Color(0xFFFC5050))
+    val colorGradient = listOf(
+        Color(0xFFFFDA77),
+        Color(0xFFFBCB6F),
+        Color(0xFFFBBB6F),
+        Color(0xFFFBB26F),
+        Color(0xFFFBAA6F),
+        Color(0xFFFB996F),
+        Color(0xFFFB886F),
+        Color(0xFFFB806F),
+        Color(0xFFFB6F6F),
+        Color(0xFFFC5050)
+    )
 
     var sliderValue by remember { mutableStateOf(10f) }
 
     IClickIPayApplicationDoctorTheme {
-        Scaffold(
-            topBar = {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(80.dp)
-                        .background(Color.White),
-                    horizontalArrangement = androidx.compose.foundation.layout.Arrangement.Start,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+        Scaffold(topBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(80.dp)
+                    .background(Color.White),
+                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 //                Spacer(modifier =Modifier.height(230.dp).width(10.dp).background(Color.Red))
-                    Column {
+                Column {
 
-                        Spacer(modifier = Modifier.padding(10.dp))
-                        Image(
-                            modifier = Modifier
-                                .height(95.dp)
-                                .width(55.dp)
-                                .padding(10.dp)
-                                .clickable { doctorNavController?.popBackStack() },
-                            painter = painterResource(id = R.drawable.back_arrow),
-                            contentDescription = "Back"
-                        )
-                    }
+                    Spacer(modifier = Modifier.padding(10.dp))
+                    Image(
+                        modifier = Modifier
+                            .height(95.dp)
+                            .width(55.dp)
+                            .padding(10.dp)
+                            .clickable { doctorNavController?.popBackStack() },
+                        painter = painterResource(id = R.drawable.back_arrow),
+                        contentDescription = "Back"
+                    )
                 }
             }
-        ) { innerPadding ->
+        }) { innerPadding ->
             LazyColumn(
                 modifier = Modifier
                     .padding(innerPadding)
@@ -109,7 +109,7 @@ val colorGradient = listOf(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                item{
+                item {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -129,7 +129,7 @@ val colorGradient = listOf(
                     }
                 }
 
-                item{
+                item {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -138,10 +138,7 @@ val colorGradient = listOf(
                             Text(text = "Weak", color = Color(0xFF999999))
                             Text(text = "Strong", color = Color(0xFF999999))
                         }
-                        CustomBarSlider(
-                            value = sliderValue,
-                            onValueChange = { sliderValue = it }
-                        )
+                        CustomBarSlider(value = sliderValue, onValueChange = { sliderValue = it })
                     }
 
                     Spacer(modifier = Modifier.height(24.dp))
@@ -179,37 +176,52 @@ fun CustomBarSlider(value: Float, onValueChange: (Float) -> Unit) {
         Color(0xFFFB886F),
         Color(0xFFFB806F),
         Color(0xFFFB6F6F),
-        Color(0xFFFC5050))
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Gradient bars
+        Color(0xFFFC5050)
+    )
+
+    Column() {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(barHeight * 1.5f)
-                .padding(horizontal = 20.dp)
+            modifier = Modifier.fillMaxWidth(),
         ) {
+            // Gradient bars
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(barHeight * 1.5f)
+                    .padding(horizontal = 20.dp)
+            ) {
+
+            }
+
             // Draw bars
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 for (i in 1..barCount) {
                     // Each bar
                     Box(
-                       if (i <= value.toInt()) Modifier.width(barWidth)
-                        .height(barHeight)
-                        .background(
-                            color = colorGradient[i - 1],
-                            if(i == 1) RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp) else if(i == 10) RoundedCornerShape(topEnd = 4.dp, bottomEnd = 4.dp) else RoundedCornerShape(0.dp)
-                        )
-                        else Modifier.width(barWidth)
+                        if (i <= value.toInt()) Modifier
+                            .width(barWidth)
                             .height(barHeight)
                             .background(
-                                Color(0xFFE0E0E0),
-                                if(i == 1) RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp)else if(i == 10) RoundedCornerShape(topEnd = 4.dp, bottomEnd = 4.dp) else RoundedCornerShape(0.dp)
+                                color = colorGradient[i - 1], if (i == 1) RoundedCornerShape(
+                                    topStart = 4.dp, bottomStart = 4.dp
+                                ) else if (i == 10) RoundedCornerShape(
+                                    topEnd = 4.dp, bottomEnd = 4.dp
+                                ) else RoundedCornerShape(0.dp)
+                            )
+                        else Modifier
+                            .width(barWidth)
+                            .height(barHeight)
+                            .background(
+                                Color(0xFFE0E0E0), if (i == 1) RoundedCornerShape(
+                                    topStart = 4.dp, bottomStart = 4.dp
+                                ) else if (i == 10) RoundedCornerShape(
+                                    topEnd = 4.dp, bottomEnd = 4.dp
+                                ) else RoundedCornerShape(0.dp)
 
                             )
                     )
@@ -219,36 +231,63 @@ fun CustomBarSlider(value: Float, onValueChange: (Float) -> Unit) {
 
 
 
-        // Slider
-        Slider(
-            value = value,
-            onValueChange = onValueChange,
-            valueRange = 1f..10f,
-            steps = 8,
-            modifier = Modifier.padding(horizontal = 16.dp),
-            colors = SliderDefaults.colors(
-                thumbColor = Color.Transparent,
-                activeTrackColor = Color.Transparent, // Hide track to show bars
-                inactiveTrackColor = Color.Transparent
-            ),
-            enabled = true,
-            thumb = {
-                value.roundToInt().let { thumbValue ->
-                    Box(
-                    ) {
-                        Text(
-                            text = thumbValue.toString(),
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
+            // Slider
+            Slider(
+
+                value = value,
+                onValueChange = onValueChange,
+                valueRange = 1f..10f,
+                steps = 8,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .alpha(0f)
+                    .padding(horizontal = 16.dp),
+                colors = SliderDefaults.colors(
+                    thumbColor = Color.Transparent,
+                    activeTrackColor = Color.Transparent, // Hide track to show bars
+                    inactiveTrackColor = Color.Transparent
+                ),
+                thumb = {
+                    value.roundToInt().let { thumbValue ->
+                        Box(
+                        ) {
+                            Text(
+                                text = thumbValue.toString(),
+                                color = Color.Transparent,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
                     }
+                })
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            for (i in 1..barCount) {
+                // Each bar
+                Box(
+                    modifier = Modifier
+                        .width(barWidth)
+                        .height(20.dp)
+                        .background(Color.Transparent),
+                ) {
+                    Text(
+                        modifier = if (i <= value.toInt()) {
+                            Modifier.align(Alignment.Center)
+                        } else Modifier.align(Alignment.Center),
+                        text = i.toString(),
+                        color = if (i == value.toInt()) Color.Black else Color.Gray,)
                 }
             }
-        )
+        }
     }
-}
+
+
 
 
 @Composable
