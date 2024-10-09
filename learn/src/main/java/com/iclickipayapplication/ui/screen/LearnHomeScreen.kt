@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,18 +30,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.iclickipay.learn.R
+import com.iclickipayapplication.ui.LearnNavigationData
 import com.iclickipayapplication.ui.components.TeacherCard
+import com.iclickipayapplication.viewModel.TeacherAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LearnHomeScreen (
-    navController: NavHostController? = null,
-    lesson: String = "Leason", level: String? = "Level"){
+fun LearnHomeScreen (navController: NavHostController, lesson: String, level: String, viewModel: TeacherAdapter = hiltViewModel()){
+
     Scaffold(
         topBar = {
             Row(
@@ -60,6 +64,7 @@ fun LearnHomeScreen (
             }
         }
     ) {
+        val upcomingData = viewModel.upcomingData.value
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -91,7 +96,14 @@ fun LearnHomeScreen (
                             .align(Alignment.BottomCenter),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Johannesburg, 1 Road Ubuntu", fontWeight = FontWeight.Bold)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ){
+                            Text(text = "Johannesburg, 1 Road Ubuntu", fontWeight = FontWeight.Bold)
+                            Icon(painter = painterResource(id = R.drawable.location), contentDescription = "Location", modifier = Modifier.size(30.dp).clickable { navController.navigate(LearnNavigationData.MAP.name) })
+                        }
+
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceAround
@@ -106,10 +118,12 @@ fun LearnHomeScreen (
                         ) {
                             Text("20 Mar - 10h", fontWeight = FontWeight.Bold)
                             Text(lesson, fontWeight = FontWeight.Bold)
-                            Text("$level", fontWeight = FontWeight.Bold)
+                            Text(level, fontWeight = FontWeight.Bold)
                         }
                         Spacer(modifier = Modifier.height(16.dp))
-                        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                        Column(modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)) {
                             TextField(
                                 value = "",
                                 onValueChange = {},
@@ -145,18 +159,26 @@ fun LearnHomeScreen (
                     Icon(painter = painterResource(id = R.drawable.file), contentDescription = "Orders", tint = Color.White)
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "Teachers", fontWeight = FontWeight.Bold, fontSize = 20.sp, modifier = Modifier.padding(start = 16.dp))
+                Row {
+                    Text(text = "Teachers", fontWeight = FontWeight.Bold, fontSize = 20.sp, modifier = Modifier.padding(start = 16.dp))
+                    Spacer(modifier = Modifier.weight(1f))
+                    Image(painterResource(id =  R.drawable.filter), contentDescription = "filter", modifier = Modifier.clickable { navController.navigate(
+                        LearnNavigationData.FILTER.name) })
+                }
+
                 Spacer(modifier = Modifier.height(8.dp))
-                TeacherCard()
+                if (upcomingData.isEmpty()) {
+                    TeacherCard(navController)
+                }
+                else{
+                    LazyRow{
+                        items(upcomingData) {item -> TeacherCard(navController) }
+                    }
+                }
+
+
             }
         }
 
     }
-}
-
-
-@Composable
-@Preview
-fun LearnHomeScreenPreview() {
-    LearnHomeScreen()
 }

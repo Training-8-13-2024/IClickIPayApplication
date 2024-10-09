@@ -7,12 +7,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.iclickipayapplication.ui.screen.LearnBookingScreen
+import com.iclickipayapplication.ui.screen.LearnFilterScreen
 import com.iclickipayapplication.ui.screen.LearnHomeScreen
+import com.iclickipayapplication.ui.screen.LearnMapScreen
+import com.iclickipayapplication.ui.screen.LearnOrderScreen
 import com.iclickipayapplication.ui.screen.LearnScreen
 import com.iclickipayapplication.ui.screen.LearnTeacherScreen
 
 enum class LearnNavigationData {
-    HOME, SCREEN2, MAIN
+    HOME, SCREEN2, MAIN, FILTER, BOOKING, ORDER, MAP
 }
 @Composable
 fun LearnNavigation(navController: NavHostController? = null) {
@@ -25,6 +29,10 @@ fun LearnNavigation(navController: NavHostController? = null) {
     ) {
         composable(LearnNavigationData.HOME.name) { LearnScreen(navController = learnNavController) }
         composable(LearnNavigationData.SCREEN2.name) { LearnTeacherScreen(navController = learnNavController) }
+        composable(LearnNavigationData.FILTER.name) { LearnFilterScreen(navController = learnNavController) }
+        composable(LearnNavigationData.BOOKING.name) { LearnBookingScreen(navController = learnNavController) }
+        composable(LearnNavigationData.ORDER.name) { LearnOrderScreen(navController = learnNavController) }
+        composable(LearnNavigationData.MAP.name) { LearnMapScreen(navController = learnNavController) }
         composable(
             route = LearnNavigationData.MAIN.name + "/{lesson}/{level}",
             arguments = listOf(
@@ -34,7 +42,9 @@ fun LearnNavigation(navController: NavHostController? = null) {
         ) {backStackEntry ->
             val lesson = backStackEntry.arguments?.getString("lesson")?:""
             val level = backStackEntry.arguments?.getString("level")
-            LearnHomeScreen(navController = learnNavController, lesson = lesson, level = level)
+            if (level != null) {
+                LearnHomeScreen(navController = learnNavController, lesson = lesson, level = level)
+            }
         }
 
 
