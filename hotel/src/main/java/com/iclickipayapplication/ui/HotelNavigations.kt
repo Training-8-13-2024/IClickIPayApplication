@@ -27,7 +27,7 @@ fun HotelScreen(navController: NavHostController) {
         navController.navigate("HOME")
     }
 
-    NavHost(navController = hotelNavController, startDestination = HotelNavigation.ORDER.name) {
+    NavHost(navController = hotelNavController, startDestination = HotelNavigation.HOME.name) {
         composable(HotelNavigation.HOME.name) {
             HotelMainScreen(hotelNavController)
         }

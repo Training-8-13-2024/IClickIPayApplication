@@ -1,6 +1,14 @@
 package com.iclickipayapplication.ui.screen
 
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.telephony.SmsManager
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,6 +41,7 @@ import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,6 +61,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
 import com.iclickipay.hotel.R
 import com.iclickipayapplication.common.ui.components.CustomButton
@@ -76,6 +86,31 @@ fun HotelDetailScreen(hotel: String, navController: NavHostController) {
     }
 
 
+    val context = LocalContext.current
+
+
+    // State to store permission result
+    var hasSmsPermission by remember { mutableStateOf(false) }
+
+    // Permission launcher
+    val smsPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted ->
+            hasSmsPermission = isGranted
+            if (!isGranted) {
+                Toast.makeText(context, "SMS permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    )
+
+    // Check if permission is already granted
+    LaunchedEffect(Unit) {
+        hasSmsPermission = ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.SEND_SMS
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -83,27 +118,48 @@ fun HotelDetailScreen(hotel: String, navController: NavHostController) {
     ) {
         // Image Carousel with LazyRow
         item {
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Transparent),
-                contentPadding = PaddingValues(horizontal = 16.dp)
-            ) {
-                items(3) { index ->
+//            LazyRow(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .background(Color.Transparent),
+//                contentPadding = PaddingValues(horizontal = 16.dp)
+//            ) {
+//                items(3) { index ->
+//
+//
+//                    Image(
+//                        painter = painterResource(id = hotelImages[index]),
+//                        contentDescription = null,
+//                        modifier = Modifier
+//                            .height(200.dp)
+//                            .width(300.dp)
+//                            .padding(8.dp)
+//                            .clip(RoundedCornerShape(8.dp)),
+//                        contentScale = ContentScale.Crop
+//                    )
+//                }
+//            }
 
-
+                HorizontalMultiBrowseCarousel(
+                    state = rememberCarouselState { hotelImages.count() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(221.dp),
+                    preferredItemWidth = 186.dp,
+                    itemSpacing = 8.dp,
+                    contentPadding = PaddingValues(horizontal = 16.dp)
+                ) { i ->
+                    val item = hotelImages[i]
                     Image(
-                        painter = painterResource(id = hotelImages[index]),
-                        contentDescription = null,
                         modifier = Modifier
-                            .height(200.dp)
-                            .width(300.dp)
-                            .padding(8.dp)
-                            .clip(RoundedCornerShape(8.dp)),
+                            .height(205.dp)
+                            .maskClip(MaterialTheme.shapes.extraLarge),
+                        painter = painterResource(id = item),
+                        contentDescription = stringResource(item),
                         contentScale = ContentScale.Crop
                     )
                 }
-            }
+            
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
@@ -158,7 +214,16 @@ fun HotelDetailScreen(hotel: String, navController: NavHostController) {
                 {
                     CustomButton(
                         text = "Call",
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_DIAL).apply {
+                                data = Uri.parse("tel: 404 123 4567")
+                            }
+                            if (intent.resolveActivity(context.packageManager) != null) {
+                                context.startActivity(intent)
+                            } else {
+                                Toast.makeText(context, "No dialer app found", Toast.LENGTH_SHORT).show()
+                            }
+                        },
                         bgcolor = Color(0xFFC4C4C4)
                     )
                 }
@@ -168,7 +233,21 @@ fun HotelDetailScreen(hotel: String, navController: NavHostController) {
                 {
                     CustomButton(
                         text = "Message",
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            if (hasSmsPermission) {
+                                // If permission is granted, send SMS programmatically
+                                try {
+                                    val smsManager = SmsManager.getDefault()
+                                    smsManager.sendTextMessage("404 123 1234", null, "Need help with booking", null, null)
+                                    Toast.makeText(context, "SMS Sent!", Toast.LENGTH_SHORT).show()
+                                } catch (e: Exception) {
+                                    Toast.makeText(context, "Failed to send SMS: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                // Request the SEND_SMS permission
+                                smsPermissionLauncher.launch(Manifest.permission.SEND_SMS)
+                            }
+                        },
                         bgcolor = Color(0xFF10C971)
                     )
                 }
