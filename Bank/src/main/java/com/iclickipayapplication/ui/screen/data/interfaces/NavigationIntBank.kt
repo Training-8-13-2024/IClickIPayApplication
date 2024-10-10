@@ -1,6 +1,6 @@
 package com.iclickipayapplication.ui.screen.data.interfaces
 
-interface Navigation {
+interface NavigationIntBank {
     val routes: String
     val icon: Int?
         get() = null

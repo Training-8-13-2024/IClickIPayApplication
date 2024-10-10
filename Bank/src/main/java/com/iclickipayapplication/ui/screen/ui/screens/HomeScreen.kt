@@ -179,7 +179,7 @@ fun HomeScreen() {
                     modifier = Modifier.size(20.dp)
                         .clickable {
                             clipboardManager.setText(
-                                AnnotatedString(user.cardNumber)
+                                AnnotatedString(user.accountNumber)
                             )
                             Toast.makeText(context, "Account Number Copied", Toast.LENGTH_SHORT).show()
                         }
