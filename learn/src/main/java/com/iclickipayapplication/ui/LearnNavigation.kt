@@ -19,7 +19,7 @@ enum class LearnNavigationData {
     HOME, SCREEN2, MAIN, FILTER, BOOKING, ORDER, MAP
 }
 @Composable
-fun LearnNavigation(navController: NavHostController? = null) {
+fun LearnNavigation(navController: NavHostController) {
     val learnNavController = rememberNavController()
 
 
@@ -31,33 +31,18 @@ fun LearnNavigation(navController: NavHostController? = null) {
         composable(LearnNavigationData.SCREEN2.name) { LearnTeacherScreen(navController = learnNavController) }
         composable(LearnNavigationData.FILTER.name) { LearnFilterScreen(navController = learnNavController) }
         composable(LearnNavigationData.BOOKING.name) { LearnBookingScreen(navController = learnNavController) }
-        composable(LearnNavigationData.ORDER.name) { LearnOrderScreen(navController = learnNavController) }
-        composable(LearnNavigationData.MAP.name) { LearnMapScreen(navController = learnNavController) }
         composable(
-            route = LearnNavigationData.MAIN.name + "/{lesson}/{level}",
+            route = LearnNavigationData.ORDER.name + "/{selectedDate}",
             arguments = listOf(
-                navArgument("lesson") { type = NavType.StringType },
-                navArgument("level") { type = NavType.StringType }
+                navArgument("selectedDate") { type = NavType.StringType }
             )
-        ) {backStackEntry ->
-            val lesson = backStackEntry.arguments?.getString("lesson")?:""
-            val level = backStackEntry.arguments?.getString("level")
-            if (level != null) {
-                LearnHomeScreen(navController = learnNavController, lesson = lesson, level = level)
-            }
-        }
+            ) {backStackEntry ->
+            val selectedDate = backStackEntry.arguments?.getString("selectedDate")?:""
+            LearnOrderScreen(navController = learnNavController, selectedDate = selectedDate) }
+        composable(LearnNavigationData.MAP.name) { LearnMapScreen(navController = learnNavController) }
+        composable(LearnNavigationData.MAIN.name) { LearnHomeScreen(navController = learnNavController) }
 
 
-
-
-//        composable(
-//            route = TinderNavigationData.DETAILS.name + "/{id}",
-//            arguments = listOf(navArgument("id") { type = NavType.IntType })
-//        ) { backStackEntry ->
-//            // Extract the 'id' argument
-//            val id = backStackEntry.arguments?.getInt("id") ?: -1
-//            TinderDetailsScreen(navController = tinderNavController, id = id)
-//        }
 
 
     }

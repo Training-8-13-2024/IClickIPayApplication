@@ -17,8 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -92,7 +94,11 @@ fun InjuryScreen(doctorNavController: NavHostController? = null) {
                         icon = Icons.Default.Check,
                         onClick = {
                             doctorNavController?.navigate(DoctorNavigation.INJURYQUESTION1.name)
-                        }
+                        },
+                        modifier = Modifier
+                            .height(94.dp)
+                            .width(94.dp)
+                            .padding(horizontal = 4.dp)
                     )
                     ResponseButton(
                         text = "No",
@@ -100,9 +106,17 @@ fun InjuryScreen(doctorNavController: NavHostController? = null) {
                         icon = Icons.Default.Close,
                         onClick = {
                             doctorNavController?.navigate(DoctorNavigation.INJURYQUESTION1.name)
-                        }
+                        },
+                        modifier = Modifier
+                            .height(94.dp)
+                            .width(94.dp)
+                            .padding(horizontal = 4.dp)
                     )
                     ResponseButton(
+                        modifier = Modifier
+                            .height(94.dp)
+                            .width(94.dp)
+                            .padding(horizontal = 4.dp),
                         text = "Pass",
                         backgroundColor = Color(0xFFE0E0E0),
                         icon = Icons.Default.ArrowForward,
@@ -117,15 +131,18 @@ fun InjuryScreen(doctorNavController: NavHostController? = null) {
 }
 
 @Composable
-fun ResponseButton(text: String, backgroundColor: Color, icon: androidx.compose.ui.graphics.vector.ImageVector, onClick: () -> Unit) {
+fun ResponseButton(
+    text: String,
+    backgroundColor: Color,
+    icon: ImageVector? = null,
+    onClick: () -> Unit,
+    modifier: Modifier
+) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor),
         shape = RoundedCornerShape(8.dp),
-        modifier = Modifier
-            .height(94.dp)
-            .width(94.dp)
-            .padding(horizontal = 4.dp)
+        modifier = modifier
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -133,9 +150,12 @@ fun ResponseButton(text: String, backgroundColor: Color, icon: androidx.compose.
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Spacer(modifier = Modifier.width(28.dp))
-            Icon(imageVector = icon, contentDescription = text)
+            if (icon != null) {
+                Icon(imageVector = icon, contentDescription = text)
+            }
             Spacer(modifier = Modifier.width(28.dp))
             Text(
+                textAlign = TextAlign.Center,
                 text = text,
                 color = if (backgroundColor == Color(0xFFE0E0E0)) Color.Black else Color.White
             )

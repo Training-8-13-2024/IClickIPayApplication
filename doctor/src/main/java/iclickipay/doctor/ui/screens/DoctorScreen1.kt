@@ -16,23 +16,38 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.iclickipay.data.doctor.local.entities.PatientData
 import com.iclickipay.doctor.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import iclickipay.doctor.ui.DoctorNavigation
+import iclickipay.doctor.viewmodel.PatientViewModel
 
 
 @Composable
 fun DoctorScreen1(
-    navController: NavHostController? = null
+    navController: NavHostController? = null,
+    viewModel: PatientViewModel = hiltViewModel()
 ) {
 
+        viewModel.insertPatient(PatientData(
+            id = 1,
+            age = 30,
+            gender = 0,
+            option = 0,
+            item = "item",
+            injury = "injury",
+            severity = 3,
+            symptoms = "symptoms",
+        ))
 
     Scaffold(
         topBar = {
@@ -44,7 +59,9 @@ fun DoctorScreen1(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    modifier = Modifier.size(45.dp). padding(0.dp)
+                    modifier = Modifier
+                        .size(45.dp)
+                        .padding(0.dp)
                         .height(55.dp)
                         .padding(10.dp)
                         .clickable { navController?.popBackStack() },
@@ -52,7 +69,9 @@ fun DoctorScreen1(
             }
         }
     ) { innerPadding ->
-        Box(modifier = Modifier.fillMaxWidth().padding(innerPadding))
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .padding(innerPadding))
         {
             Column(
                 modifier = Modifier
@@ -81,7 +100,9 @@ fun DoctorScreen1(
                     )
                     Spacer(modifier = Modifier.padding(30.dp))
                     Text(
-                        modifier = Modifier.fillMaxWidth().padding(20.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(20.dp),
                         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lobortis sit amet odio in egestas. Pellen tesque ultricies justo.",
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
                     )

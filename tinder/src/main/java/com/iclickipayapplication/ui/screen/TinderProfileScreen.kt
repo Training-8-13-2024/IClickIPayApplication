@@ -32,7 +32,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -44,18 +46,33 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.iclickipay.tinder.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.ui.TinderNavigationData
+import com.iclickipayapplication.viewmodel.TinderViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileCompletionScreen(navController: NavHostController) {
-    var description by remember { mutableStateOf("Hello, I’m...") }
-    var city by remember { mutableStateOf("Dakar") }
-    var dateOfBirth by remember { mutableStateOf("02/05/1976") }
+fun ProfileCompletionScreen(navController: NavHostController, viewModel: TinderViewModel = hiltViewModel()) {
+
+    val booking by viewModel.upcomingData.observeAsState()
+    val data = booking?.last()
+
+
+    var description by remember { mutableStateOf(data?.description?:"Hello, I’m...") }
+    var city by remember { mutableStateOf(data?.city?:"Dakar") }
+    var dateOfBirth by remember { mutableStateOf(data?.dob?:"02/05/1976") }
+
+    LaunchedEffect(data) {
+        data?.let {
+            description = it.description
+            city = it.city
+            dateOfBirth = it.dob
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -70,7 +87,7 @@ fun ProfileCompletionScreen(navController: NavHostController) {
                     modifier = Modifier
                         .size(50.dp)
                         .padding(10.dp)
-                        .clickable {navController.navigate(TinderNavigationData.SCREEN2.name) },
+                        .clickable { navController.navigate(TinderNavigationData.SCREEN2.name) },
                     painter = painterResource(id = com.iclickipayapplication.common.R.drawable.backarrow),
                     contentDescription = "Back"
                 )
@@ -154,6 +171,14 @@ fun ProfileCompletionScreen(navController: NavHostController) {
             CustomButton(
                 text = "Next",
                 onClick = {
+                    val updatedBooking = data?.copy(
+                        description = description,
+                        city = city,
+                        dob = dateOfBirth
+                    )
+                    if (updatedBooking != null) {
+                        viewModel.updateBooking(updatedBooking)
+                    }
                     navController.navigate(TinderNavigationData.MAP.name)
                 },
                 modifier = Modifier.fillMaxWidth()

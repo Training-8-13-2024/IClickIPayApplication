@@ -46,7 +46,7 @@ fun CustomTabs(
         when (tabIndex) {
             0 -> TabSymptoms()
             1 -> TabResults()
-            2 -> TabSymptoms()
+            2 -> TabSummary()
         }
     }
 }

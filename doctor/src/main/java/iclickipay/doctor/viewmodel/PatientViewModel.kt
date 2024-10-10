@@ -1,38 +1,44 @@
 package iclickipay.doctor.viewmodel
 
-import androidx.compose.runtime.Recomposer
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.iclickipay.data.doctor.local.dao.PatientDao
 import com.iclickipay.data.doctor.local.entities.PatientData
+import com.iclickipay.data.doctor.local.entities.toPatient
 import com.iclickipay.data.doctor.models.Patient
-import iclickipay.doctor.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import androidx.compose.runtime.State
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class PatientViewModel @Inject constructor(
-    private val repository: Repository
-): ViewModel() {
+    private val patientDao: PatientDao,
+) : ViewModel() {
 
-//    holder for patient details temporarily
+    init {
+        viewModelScope.launch {
+            try {
+                var patients = patientDao.getAllPatients()
+                _patient.value = patients[0].toPatient()
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    //    holder for patient details temporarily
     public var _patientTemp = mutableStateOf(Patient())
-    val patientTemp : State<Patient> = _patientTemp
+    val patientTemp: State<Patient> = _patientTemp
 
-//    fun to set patient details property by property temporarily using on one object
+    //    fun to set patient details property by property temporarily using on one object
     fun setPatientTemp(pat: Patient) {
         _patientTemp = mutableStateOf(pat)
         _patient.value = pat
-
     }
-
 
 
     // To hold patient details, originally LiveData, now StateFlow
@@ -40,31 +46,29 @@ class PatientViewModel @Inject constructor(
     val patient: StateFlow<Patient> = _patient
 
 
-
-
     // Add the required functions here
     fun insertPatient(patient: PatientData) {
-        viewModelScope.launch {repository.insertPatient(patient)}
+        viewModelScope.launch { patientDao.insertPatient(patient) }
     }
 
-    suspend fun getAllPatients() {
-        viewModelScope.launch {repository.getAllPatients()}
+    fun getAllPatients() {
+        viewModelScope.launch { patientDao.getAllPatients() }
     }
 
-    suspend fun getPatientById(id: Long){
-        viewModelScope.launch {repository.getPatientById(id)}
+    fun getPatientById(id: Long) {
+        viewModelScope.launch { patientDao.getPatientById(id) }
     }
 
-    suspend fun deletePatient(patient: PatientData) {
-        viewModelScope.launch {repository.deletePatient(patient)}
+    fun deletePatient(patient: PatientData) {
+        viewModelScope.launch { patientDao.deletePatient(patient.id) }
     }
 
-    suspend fun PatientDao() {
-        viewModelScope.launch {repository.PatientDao()}
-    }
+//    suspend fun PatientDao() {
+//        viewModelScope.launch {patientDao.PatientDao()}
+//    }
 
-    suspend fun updatePatient(patient: PatientData) {
-        viewModelScope.launch {repository.updatePatient(patient)}
+    fun updatePatient(patient: PatientData) {
+        viewModelScope.launch { patientDao.updatePatient(patient) }
     }
 
 }

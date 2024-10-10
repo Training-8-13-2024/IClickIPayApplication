@@ -17,8 +17,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,7 +44,8 @@ fun DoctorScreen2(
 ) {
 //    val context = LocalContext.current as Activity
 
-    val patient = Patient()
+    // Observe the patient data from ViewModel
+    val patient by viewModel.patient.collectAsState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -112,9 +116,11 @@ fun DoctorScreen2(
 
                     CustomButton(
                         text = "Make the diagnosis",
+                        bgcolor = Color(0xFF10C971),
                         onClick = {
-                            patient?.option = 0
-                            viewModel.insertPatient(patient.toPatientData())
+                            patient.option = 0
+                            patient.id = 1
+                            viewModel.updatePatient(patient.toPatientData())
                             navController?.navigate(DoctorNavigation.GENDER.name)
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -124,8 +130,9 @@ fun DoctorScreen2(
                     CustomButton(
                         text = "Make an appointment",
                         onClick = {
-                            patient?.option = 1
-                            viewModel.insertPatient(patient.toPatientData())
+                            patient.option = 1
+                            patient.id = 1
+                            viewModel.updatePatient(patient.toPatientData())
                             navController?.navigate(DoctorNavigation.GENDER.name)
                         },
                         modifier = Modifier.fillMaxWidth()

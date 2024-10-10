@@ -2,6 +2,7 @@ package iclickipay.doctor.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,18 +36,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.iclickipay.data.doctor.models.Patient
+import com.iclickipay.data.doctor.models.toPatientData
 import com.iclickipay.doctor.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import iclickipay.doctor.ui.DoctorNavigation
 import iclickipay.doctor.ui.theme.IClickIPayApplicationDoctorTheme
+import iclickipay.doctor.viewmodel.PatientViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgeScreen(
-    navController: NavHostController? = null
+    navController: NavHostController? = null,
+    viewModel: PatientViewModel = hiltViewModel()
 ) {
+
+
+    // Observe the patient data from ViewModel
+    val patient by viewModel.patient.collectAsState()
+
+
 
     IClickIPayApplicationDoctorTheme{
     Scaffold(
@@ -60,6 +73,9 @@ fun AgeScreen(
                 Image(
                     modifier = Modifier
                         .size(45.dp)
+                        .clickable {
+                            navController?.popBackStack()
+                        }
                         .padding(0.dp),
                     painter = painterResource(id = R.drawable.back_arrow),
                     contentDescription = "Back"
@@ -71,7 +87,7 @@ fun AgeScreen(
             .fillMaxWidth()
             .padding(innerPadding))
         {
-            var age by remember { mutableStateOf(50) }
+            var age by remember { mutableStateOf(patient.age) }
 
 
             Column(
@@ -87,7 +103,7 @@ fun AgeScreen(
 
                 // Title Text
                 Text(
-                    text = "Indicate your age",
+                    text = "Indicate your age ${patient.toString()}",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
@@ -152,7 +168,6 @@ fun AgeScreen(
                             activeTickColor = Color.LightGray,
                             inactiveTickColor = Color.LightGray
                         ),
-
                     )
 
                     IconButton(onClick = { if (age < 100) age++ }) {
@@ -172,6 +187,9 @@ fun AgeScreen(
                 // Next button
                 CustomButton(
                     onClick = {
+                        patient.id = 1
+                        patient.age = age
+                        viewModel.insertPatient(patient.toPatientData())
                          navController?.navigate(DoctorNavigation.QUESTIONNAIRE.name)                    },
                     text = "Next",)
             }

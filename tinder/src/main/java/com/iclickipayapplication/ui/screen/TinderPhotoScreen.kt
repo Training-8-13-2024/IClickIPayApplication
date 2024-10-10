@@ -1,5 +1,7 @@
 package com.iclickipayapplication.ui.screen
 
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -35,11 +37,13 @@ import com.iclickipayapplication.common.ui.components.CustomButtonImage
 import com.iclickipayapplication.ui.TinderNavigationData
 import com.iclickipayapplication.viewmodel.SharedViewModel
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun TinderPhotoScreen(navController: NavHostController, sharedViewModel: SharedViewModel = viewModel()){
-    val imageBitmap by sharedViewModel.capturedImage.observeAsState()
+    val imageUri by sharedViewModel.imageUri.observeAsState()
 
     Scaffold(
         topBar = {
@@ -84,16 +88,24 @@ fun TinderPhotoScreen(navController: NavHostController, sharedViewModel: SharedV
                         .weight(1f),
                     contentAlignment = Alignment.TopStart
                 ) {
-                    imageBitmap?.let {
-                        Image(
-                            bitmap = it.asImageBitmap(),
-                            contentDescription = "Captured Image",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(350.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                        )
-                    } ?: Text(text = "No image captured", fontSize = 18.sp)
+                    imageUri?.let { uri ->
+                        val context = LocalContext.current
+                        val bitmap = remember(uri) {
+                            val inputStream = context.contentResolver.openInputStream(Uri.parse(uri))
+                            BitmapFactory.decodeStream(inputStream)
+                        }
+
+                        bitmap?.let {
+                            Image(
+                                bitmap = it.asImageBitmap(),
+                                contentDescription = "Captured Image",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(350.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                            )
+                        } ?: Text(text = "No image captured", fontSize = 18.sp)
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(156.dp))

@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.iclickipay.data.doctor.models.Patient
+import com.iclickipay.data.doctor.models.toPatientData
 import com.iclickipay.doctor.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import iclickipay.doctor.ui.DoctorNavigation
@@ -45,8 +47,10 @@ fun DoctorGenderScreen(
     viewModel: PatientViewModel = hiltViewModel()
 ) {
 
+
+    val patient = Patient()
 //    log patient data from viewmodel
-    val patient by viewModel._patientTemp.value
+//    val patient by viewModel._patientTemp.value
     Log.e("DoctorGenderScreen", "Patient: $patient")
     Scaffold(
         topBar = {
@@ -124,6 +128,9 @@ fun DoctorGenderScreen(
                     ) {
                         Card(
                             onClick = {
+                                patient.gender = 0
+                                patient.id = 1
+                                viewModel.updatePatient(patient.toPatientData())
                                 doctorNavController?.navigate(DoctorNavigation.AGE.name)
                             },
                             shape = RoundedCornerShape(6.dp),
@@ -154,6 +161,9 @@ fun DoctorGenderScreen(
                         Spacer(modifier = Modifier.padding(10.dp))
                         Card(
                             onClick = {
+                                patient.gender = 1
+                                patient.id = 1
+                                viewModel.updatePatient(patient.toPatientData())
                                 doctorNavController?.navigate(DoctorNavigation.AGE.name)
                             },
                             shape = RoundedCornerShape(6.dp),
