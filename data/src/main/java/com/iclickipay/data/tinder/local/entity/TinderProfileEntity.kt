@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tinder")
 data class TinderProfileEntity (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "description") val description: String = "English",
-    @ColumnInfo(name = "city") val city: String = "College",
-    @ColumnInfo(name = "dob") val dob: String = "College",
+    @ColumnInfo(name = "description") val description: String = "Hello, I’m...",
+    @ColumnInfo(name = "city") val city: String = "Dakar",
+    @ColumnInfo(name = "dob") val dob: String = "02/05/1976",
 )

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.iclickipay.data.doctor.local.dao.PatientDao
 import com.iclickipay.data.learn.local.dao.TeacherBookingDao
+import com.iclickipay.data.profile.remote.ProfileApiInterface
 import com.iclickipay.data.remote.learn.TeacherApiDetails.BASE_URL
 import com.iclickipay.data.remote.learn.TeacherApiInterface
 import com.iclickipay.data.remote.tinder.ProductAPIInterface
