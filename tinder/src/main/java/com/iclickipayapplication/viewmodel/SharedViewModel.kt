@@ -1,14 +1,16 @@
 package com.iclickipayapplication.viewmodel
 
 import android.graphics.Bitmap
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
 class SharedViewModel : ViewModel() {
-    val capturedImage: MutableLiveData<Bitmap?> = MutableLiveData(null)
+    private val _imageUri = MutableLiveData<String?>()
+    val imageUri: LiveData<String?> = _imageUri
 
-    fun setImage(bitmap: Bitmap?) {
-        capturedImage.value = bitmap
+    fun setImageUri(uri: String?) {
+        _imageUri.value = uri
     }
 }

@@ -17,33 +17,51 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.iclickipay.data.learn.local.dao.TeacherBookingDao
+import com.iclickipay.data.learn.local.entity.TeacherBookingEntity
+import com.iclickipayapplication.common.local.AppDatabase
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.ui.LearnNavigationData
 import com.iclickipayapplication.ui.components.DropdownMenuField
+import com.iclickipayapplication.viewModel.LearnTeacherViewModel
 
 @Composable
-fun LearnTeacherScreen(navController: NavHostController){
+fun LearnTeacherScreen(navController: NavHostController, viewModel: LearnTeacherViewModel = hiltViewModel()){
+    val booking by viewModel.upcomingData.observeAsState()
+    val data = booking?.last()
 
-    var selectedLesson by remember { mutableStateOf("English") }
-    var selectedLevel by remember { mutableStateOf("College") }
-    var selectedTime by remember { mutableStateOf(14f) }
+    var selectedLesson by remember { mutableStateOf(data?.lesson ?: "English") }
+    var selectedLevel by remember { mutableStateOf(data?.level ?: "College") }
+    var selectedTime by remember { mutableStateOf(data?.availabilityTime ?: 14f) }
 
     val lessons = listOf("English", "Math", "Science")
     val levels = listOf("College", "High School", "Middle School")
     val times = listOf(8, 11, 14, 17, 20)
+
+    LaunchedEffect(data) {
+        data?.let {
+            selectedLesson = it.lesson
+            selectedLevel = it.level
+            selectedTime = it.availabilityTime
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -128,14 +146,20 @@ fun LearnTeacherScreen(navController: NavHostController){
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-
-
                 Spacer(modifier = Modifier.weight(1f))
 
                 CustomButton(
                     text = "Next",
                     onClick = {
-                        navController.navigate(LearnNavigationData.MAIN.name + "/$selectedLesson/$selectedLevel")
+                        val updatedBooking = data?.copy(
+                            lesson = selectedLesson,
+                            level = selectedLevel,
+                            availabilityTime = selectedTime
+                        )
+                        if (updatedBooking != null) {
+                            viewModel.insertBooking(updatedBooking)
+                        }
+                        navController.navigate(LearnNavigationData.MAIN.name)
                     },
                     modifier = Modifier.fillMaxWidth()
                 )

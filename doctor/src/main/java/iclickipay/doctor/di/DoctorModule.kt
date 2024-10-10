@@ -18,19 +18,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class DoctorModule {
 
-
-    // Provide the Room database instance
-    @Provides
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(
-            context.applicationContext,
-            AppDatabase::class.java,
-            "App_database"
-        )
-            .fallbackToDestructiveMigration()
-            .build()
-    }
-
     // Provide the DAO
     @Provides
     fun providePatientDao(database: AppDatabase) = database.PatientDao()

@@ -24,13 +24,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.iclickipay.data.tinder.local.entity.TinderProfileEntity
 import com.iclickipay.tinder.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.ui.TinderNavigationData
+import com.iclickipayapplication.viewmodel.TinderViewModel
 
 @Composable
-fun TinderScreen(navController: NavHostController) {
+fun TinderScreen(navController: NavHostController, viewModel: TinderViewModel = hiltViewModel()) {
     Scaffold(
         topBar = {
             Row(
@@ -107,6 +110,8 @@ fun TinderScreen(navController: NavHostController) {
                 CustomButton(
                     text = "Let's go",
                     onClick = {
+                        val data = TinderProfileEntity()
+                        viewModel.insertBooking(data)
                         navController.navigate(TinderNavigationData.SCREEN2.name)
                     },
                     modifier = Modifier.fillMaxWidth()
