@@ -12,15 +12,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,22 +31,33 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.iclickipay.learn.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.ui.LearnNavigationData
 import com.iclickipayapplication.ui.components.DropdownMenuField
 import com.iclickipayapplication.ui.components.StarRatingBar
+import com.iclickipayapplication.viewModel.LearnTeacherViewModel
 
 @Composable
-fun LearnFilterScreen(navController: NavHostController){
+fun LearnFilterScreen(navController: NavHostController, viewModel: LearnTeacherViewModel = hiltViewModel()){
+
+    val booking by viewModel.upcomingData.observeAsState()
+    val data = booking?.last()
 
     var selectedSortOption by remember { mutableStateOf("Recommend") }
     val sortOptions = listOf("Recommend", "Price: Low to High", "Price: High to Low")
 
 
-    var sliderPosition by remember { mutableStateOf(30f) }
-    var selectedRating by remember { mutableStateOf(3.5f) }
+    var sliderPosition by remember { mutableStateOf(data?.price ?: 30f) }
+    var selectedRating by remember { mutableStateOf(data?.rating?: 3.5f) }
+
+    LaunchedEffect(data) {
+        data?.let {
+            sliderPosition = it.price
+            selectedRating = it.rating
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -75,7 +86,6 @@ fun LearnFilterScreen(navController: NavHostController){
             }
         }
     ){innerPadding ->
-
         Box(
             modifier = Modifier
                 .padding(16.dp)
@@ -118,7 +128,15 @@ fun LearnFilterScreen(navController: NavHostController){
 
                 Spacer(modifier = Modifier.height(48.dp))
 
-                CustomButton(text = "Apply", onClick = { navController.navigate(LearnNavigationData.MAIN.name) })
+                CustomButton(text = "Apply", onClick = {
+                     val updatedBooking = data?.copy(
+                         price = sliderPosition,
+                         rating = selectedRating
+                     )
+                    if (updatedBooking != null) {
+                        viewModel.updateBooking(updatedBooking)
+                    }
+                    navController.navigate(LearnNavigationData.MAIN.name) })
             }
         }
 

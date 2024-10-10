@@ -16,6 +16,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,27 +28,24 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.iclickipayapplication.data.getDummyCalendarDays
 
 @Composable
-fun CalendarHeader() {
-    var selectedDate by remember { mutableStateOf("") }
+fun CalendarHeader(selectedDate: MutableState<String>) {
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Display the selected date
-        if (selectedDate.isNotEmpty()) {
-            Text(text = "Selected Date: $selectedDate")
+        if (selectedDate.value.isNotEmpty()) {
+            Text(text = "Selected Date: ${selectedDate.value}")
         }
 
-        // Native CalendarView wrapped in AndroidView for Jetpack Compose
         AndroidView(
             modifier = Modifier.padding(top = 16.dp),
             factory = { context ->
                 CalendarView(context).apply {
                     setOnDateChangeListener { _, year, month, dayOfMonth ->
-                        val formattedDate = "$dayOfMonth-${month + 1}-$year"
-                        selectedDate = formattedDate // Update selected date
+                        var formattedDate = "$dayOfMonth-${month + 1}-$year"
+                        selectedDate.value = formattedDate
                     }
                 }
             }

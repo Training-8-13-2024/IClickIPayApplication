@@ -24,13 +24,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.iclickipay.data.learn.local.entity.TeacherBookingEntity
 import com.iclickipay.learn.R
 import com.iclickipayapplication.common.ui.components.CustomButton
 import com.iclickipayapplication.ui.LearnNavigationData
+import com.iclickipayapplication.viewModel.LearnTeacherViewModel
 
 @Composable
-fun LearnScreen(navController: NavHostController) {
+fun LearnScreen(navController: NavHostController, viewModel: LearnTeacherViewModel = hiltViewModel()) {
     Scaffold(
         topBar = {
             Row(
@@ -107,6 +110,8 @@ fun LearnScreen(navController: NavHostController) {
                 CustomButton(
                     text = "Let's go",
                     onClick = {
+                        val booking = TeacherBookingEntity()
+                        viewModel.insertBooking(booking)
                         navController.navigate(LearnNavigationData.SCREEN2.name)
                     },
                     modifier = Modifier.fillMaxWidth()

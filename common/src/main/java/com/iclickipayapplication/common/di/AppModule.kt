@@ -1,19 +1,27 @@
 package com.iclickipayapplication.common.di
 
+import android.content.Context
+import androidx.room.Room
 import com.google.gson.Gson
+import com.iclickipay.data.doctor.local.dao.PatientDao
+import com.iclickipay.data.learn.local.dao.TeacherBookingDao
 import com.iclickipay.data.remote.learn.TeacherApiDetails.BASE_URL
 import com.iclickipay.data.remote.learn.TeacherApiInterface
 import com.iclickipay.data.remote.tinder.ProductAPIInterface
 import com.iclickipay.data.repository.learn.Repository
+import com.iclickipay.data.tinder.local.dao.TinderBookingDao
+import com.iclickipayapplication.common.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
@@ -88,6 +96,21 @@ class AppModule {
             apiHero = apiHero,
             apiTeacher = apiTeacher)
 
+    }
+
+    @Provides
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+        return AppDatabase.getDatabase(context)
+    }
+
+    @Provides
+    fun provideBookingDao(db: AppDatabase): TeacherBookingDao {
+        return db.teacherBookingDao()
+    }
+
+    @Provides
+    fun provideTinder(db: AppDatabase): TinderBookingDao {
+        return db.tinderDao()
     }
 
 }

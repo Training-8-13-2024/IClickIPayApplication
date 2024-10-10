@@ -1,7 +1,10 @@
 package com.iclickipayapplication.ui.screen
 
 import android.Manifest
+import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Environment
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -41,19 +45,19 @@ import com.iclickipay.tinder.R
 import com.iclickipayapplication.common.ui.components.CustomButtonImage
 import com.iclickipayapplication.ui.TinderNavigationData
 import com.iclickipayapplication.viewmodel.SharedViewModel
+import java.io.File
 
 
 @Composable
 fun TinderMeetScreen(navController: NavHostController, sharedViewModel: SharedViewModel = viewModel()) {
-    var imageBitmap by remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
 
     val cameraLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicturePreview(),
-        onResult = { bitmap: Bitmap? ->
-            if (bitmap != null) {
-                imageBitmap = bitmap
-                sharedViewModel.setImage(imageBitmap)
+        contract = ActivityResultContracts.TakePicture(),
+        onResult = { isSuccess: Boolean ->
+            if (isSuccess && imageUri != null) {
+                sharedViewModel.setImageUri(imageUri.toString())
                 navController.navigate(TinderNavigationData.PHOTO.name)
             }
         }
@@ -63,9 +67,15 @@ fun TinderMeetScreen(navController: NavHostController, sharedViewModel: SharedVi
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted: Boolean ->
             if (isGranted) {
-                cameraLauncher.launch(null)
+                val imageFile = createImageFile(context)
+                val tempImageUri = FileProvider.getUriForFile(
+                    context,
+                    "${context.packageName}.fileprovider",
+                    imageFile
+                )
+                imageUri = tempImageUri
+                cameraLauncher.launch(tempImageUri)
             } else {
-                // Show a message if permission is denied
                 Toast.makeText(context, "Camera permission denied", Toast.LENGTH_SHORT).show()
             }
         }
@@ -165,4 +175,10 @@ fun TinderMeetScreen(navController: NavHostController, sharedViewModel: SharedVi
         }
     }
 
+}
+
+
+fun createImageFile(context: Context): File {
+    val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+    return File.createTempFile("profile_", ".jpg", storageDir)
 }

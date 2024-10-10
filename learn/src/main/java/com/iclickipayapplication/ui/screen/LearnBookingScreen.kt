@@ -15,6 +15,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +36,8 @@ import com.iclickipayapplication.ui.components.TimeSlotsList
 
 @Composable
 fun LearnBookingScreen(navController: NavHostController) {
+    val selectedDate =  remember { mutableStateOf("") }
+    var selectedTimeSlot = remember { mutableStateOf("") }
     Scaffold(
         topBar = {
             Row(
@@ -77,13 +83,13 @@ fun LearnBookingScreen(navController: NavHostController) {
                 verticalArrangement = Arrangement.SpaceBetween
             ){
                 Box(modifier = Modifier.height(300.dp)) {
-                    CalendarHeader()
+                    CalendarHeader(selectedDate)
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Box(modifier = Modifier.height(340.dp)) {
                     TimeSlotsList(timeSlots = getDummyTimeSlots())
                 }
-                CustomButton(text = "Next", onClick = { navController.navigate(LearnNavigationData.ORDER.name) })
+                CustomButton(text = "Next", onClick = { navController.navigate(LearnNavigationData.ORDER.name+"/${selectedDate.value}") })
             }
         }
 

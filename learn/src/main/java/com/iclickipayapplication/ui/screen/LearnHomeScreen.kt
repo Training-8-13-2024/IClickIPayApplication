@@ -24,6 +24,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,12 +39,17 @@ import androidx.navigation.NavHostController
 import com.iclickipay.learn.R
 import com.iclickipayapplication.ui.LearnNavigationData
 import com.iclickipayapplication.ui.components.TeacherCard
+import com.iclickipayapplication.viewModel.LearnTeacherViewModel
 import com.iclickipayapplication.viewModel.TeacherAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LearnHomeScreen (navController: NavHostController, lesson: String, level: String, viewModel: TeacherAdapter = hiltViewModel()){
+fun LearnHomeScreen (
+    navController: NavHostController,
+    viewModel: LearnTeacherViewModel = hiltViewModel()
+) {
+    val data by viewModel.upcomingData.observeAsState()
 
     Scaffold(
         topBar = {
@@ -57,14 +64,15 @@ fun LearnHomeScreen (navController: NavHostController, lesson: String, level: St
                     modifier = Modifier
                         .size(50.dp)
                         .padding(10.dp)
-                        .clickable { },
+                        .clickable { navController.navigate(LearnNavigationData.SCREEN2.name)},
                     painter = painterResource(id = R.drawable.home),
                     contentDescription = "Back"
                 )
             }
         }
     ) {
-        val upcomingData = viewModel.upcomingData.value
+//        val upcomingData = viewModel.upcomingData.value
+        val booking = data?.last()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -101,7 +109,9 @@ fun LearnHomeScreen (navController: NavHostController, lesson: String, level: St
                             horizontalArrangement = Arrangement.SpaceAround
                         ){
                             Text(text = "Johannesburg, 1 Road Ubuntu", fontWeight = FontWeight.Bold)
-                            Icon(painter = painterResource(id = R.drawable.location), contentDescription = "Location", modifier = Modifier.size(30.dp).clickable { navController.navigate(LearnNavigationData.MAP.name) })
+                            Icon(painter = painterResource(id = R.drawable.location), contentDescription = "Location", modifier = Modifier
+                                .size(30.dp)
+                                .clickable { navController.navigate(LearnNavigationData.MAP.name) })
                         }
 
                         Row(
@@ -117,8 +127,8 @@ fun LearnHomeScreen (navController: NavHostController, lesson: String, level: St
                             horizontalArrangement = Arrangement.SpaceAround
                         ) {
                             Text("20 Mar - 10h", fontWeight = FontWeight.Bold)
-                            Text(lesson, fontWeight = FontWeight.Bold)
-                            Text(level, fontWeight = FontWeight.Bold)
+                            Text("${booking?.lesson}", fontWeight = FontWeight.Bold)
+                            Text("${booking?.level}", fontWeight = FontWeight.Bold)
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Column(modifier = Modifier
@@ -167,14 +177,15 @@ fun LearnHomeScreen (navController: NavHostController, lesson: String, level: St
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
-                if (upcomingData.isEmpty()) {
-                    TeacherCard(navController)
-                }
-                else{
-                    LazyRow{
-                        items(upcomingData) {item -> TeacherCard(navController) }
-                    }
-                }
+                TeacherCard(navController)
+//                if (upcomingData.isEmpty()) {
+//
+//                }
+//                else{
+//                    LazyRow{
+//                        items(upcomingData) {item -> TeacherCard(navController) }
+//                    }
+//                }
 
 
             }
