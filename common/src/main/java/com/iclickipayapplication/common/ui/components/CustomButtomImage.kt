@@ -31,7 +31,8 @@ fun CustomButtonImage(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    imageResId: Int
+    imageResId: Int,
+    color: Color = Color(0xFFFF6F00),
 ) {
     Row(
         modifier = Modifier

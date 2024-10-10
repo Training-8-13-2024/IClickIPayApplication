@@ -152,7 +152,6 @@ fun AgeScreen(
                             activeTickColor = Color.LightGray,
                             inactiveTickColor = Color.LightGray
                         ),
-
                     )
 
                     IconButton(onClick = { if (age < 100) age++ }) {

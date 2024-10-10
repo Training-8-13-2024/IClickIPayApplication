@@ -237,15 +237,3 @@ fun RoomPickerDialog(
     }
 }
 
-
-//@Composable
-//@Preview
-//fun RoomPickerDialogPreview() {
-//    RoomPickerDialog(
-//        rooms = mutableStateOf(1),
-//        adults = mutableStateOf(1),
-//        kids = mutableStateOf(1),
-//        onDismiss = { },
-//        onConfirm = { rooms, kids, adults -> }
-//    )
-//}
