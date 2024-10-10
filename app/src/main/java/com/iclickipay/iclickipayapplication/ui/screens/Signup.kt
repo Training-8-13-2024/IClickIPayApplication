@@ -40,7 +40,7 @@ fun SignUpScreen(
     val firstName = remember { mutableStateOf("") }
     val lastName = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
-    val phoneNumber = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
 
     Scaffold { innerPadding ->
         Column(
@@ -97,10 +97,8 @@ fun SignUpScreen(
             Form(
                 onFormSubmit = {
                     createUser(
-                        firstName = firstName.value,
-                        lastName = lastName.value,
                         email = email.value,
-                        phoneNumber = phoneNumber.value,
+                        password = password.value,
                         navController = navController,
                         context = navController.context
                     )
@@ -111,24 +109,22 @@ fun SignUpScreen(
                 onLastNameChange = { lastName.value = it },
                 email = email.value,
                 onEmailChange = { email.value = it },
-                phoneNumber = phoneNumber.value,
-                onPhoneNumberChange = { phoneNumber.value = it }
+                password = password.value,
+                onPasswordChange = { password.value = it }
             )
         }
     }
 }
 
 fun createUser(
-    firstName: String,
-    lastName: String,
     email: String,
-    phoneNumber: String,
+    password: String,
     navController: NavController,
     context: Context
 ) {
     val auth = FirebaseAuth.getInstance()
 
-    auth.createUserWithEmailAndPassword(email, phoneNumber)
+    auth.createUserWithEmailAndPassword(email, password)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information

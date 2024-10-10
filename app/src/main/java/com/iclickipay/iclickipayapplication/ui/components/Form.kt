@@ -19,8 +19,8 @@ fun Form(
     onLastNameChange: (String) -> Unit,
     email: String,
     onEmailChange: (String) -> Unit,
-    phoneNumber: String,
-    onPhoneNumberChange: (String) -> Unit
+    password: String,
+    onPasswordChange: (String) -> Unit
 ) {
     Column() {
         Input(
@@ -40,10 +40,10 @@ fun Form(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
         Input(
-            "Phone Number",
-            value = phoneNumber,
-            onValueChange = onPhoneNumberChange,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+            "Password",
+            value = password,
+            onValueChange = onPasswordChange,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Row(
             modifier = Modifier
