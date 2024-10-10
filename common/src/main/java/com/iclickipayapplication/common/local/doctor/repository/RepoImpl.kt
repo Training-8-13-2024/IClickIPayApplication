@@ -1,4 +1,4 @@
-package iclickipay.doctor.data.repository
+package com.iclickipayapplication.common.local.doctor.repository
 
 import android.util.Log
 import com.iclickipay.data.doctor.local.dao.PatientDao

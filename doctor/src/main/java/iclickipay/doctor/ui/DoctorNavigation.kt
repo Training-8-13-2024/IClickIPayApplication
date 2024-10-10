@@ -16,13 +16,14 @@ import iclickipay.doctor.ui.screens.InjuryQuestion2Screen
 import iclickipay.doctor.ui.screens.InjuryScreen
 import iclickipay.doctor.ui.screens.QuestionnaireScreen
 import iclickipay.doctor.ui.screens.RegionScreen
+import iclickipay.doctor.ui.screens.ReportScreen
 import iclickipay.doctor.ui.screens.RequireAttentionScreen
 import iclickipay.doctor.ui.screens.SymptomsScreen
 import iclickipay.doctor.ui.screens.WeeksScreen
 
 
 enum class DoctorNavigation {
-    SCREEN1, SCREEN2, WEEKS, QUESTIONNAIRE, SYMPTOMS, GENDER, AGE, REGION, INJURY, INJURYQUESTION1, INJURYQUESTION2, REQUIREATTENTION, MAP
+    SCREEN1, SCREEN2, WEEKS, QUESTIONNAIRE, SYMPTOMS, GENDER, AGE, REGION, INJURY, INJURYQUESTION1, INJURYQUESTION2, REQUIREATTENTION, MAP, REPORT
 }
 
 @Composable
@@ -109,6 +110,12 @@ fun DoctorScreen(navController: NavHostController? = null) {
         )
         {
             MapScreen(doctorNavController)
+        }
+        composable(
+            DoctorNavigation.REPORT.name,
+        )
+        {
+            ReportScreen(doctorNavController)
         }
     }
 }

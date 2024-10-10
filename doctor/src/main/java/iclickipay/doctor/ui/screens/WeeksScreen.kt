@@ -1,3 +1,4 @@
+
 package iclickipay.doctor.ui.screens
 
 import androidx.compose.foundation.Image
@@ -231,61 +232,61 @@ fun CustomBarSlider(value: Float, onValueChange: (Float) -> Unit) {
 
 
 
-            // Slider
-            Slider(
+        // Slider
+        Slider(
 
-                value = value,
-                onValueChange = onValueChange,
-                valueRange = 1f..10f,
-                steps = 8,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .alpha(0f)
-                    .padding(horizontal = 16.dp),
-                colors = SliderDefaults.colors(
-                    thumbColor = Color.Transparent,
-                    activeTrackColor = Color.Transparent, // Hide track to show bars
-                    inactiveTrackColor = Color.Transparent
-                ),
-                thumb = {
-                    value.roundToInt().let { thumbValue ->
-                        Box(
-                        ) {
-                            Text(
-                                text = thumbValue.toString(),
-                                color = Color.Transparent,
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.align(Alignment.Center)
-                            )
-                        }
-                    }
-                })
-        }
-        Row(
+            value = value,
+            onValueChange = onValueChange,
+            valueRange = 1f..10f,
+            steps = 8,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            for (i in 1..barCount) {
-                // Each bar
-                Box(
-                    modifier = Modifier
-                        .width(barWidth)
-                        .height(20.dp)
-                        .background(Color.Transparent),
-                ) {
-                    Text(
-                        modifier = if (i <= value.toInt()) {
-                            Modifier.align(Alignment.Center)
-                        } else Modifier.align(Alignment.Center),
-                        text = i.toString(),
-                        color = if (i == value.toInt()) Color.Black else Color.Gray,)
+                .alpha(0f)
+                .padding(horizontal = 16.dp),
+            colors = SliderDefaults.colors(
+                thumbColor = Color.Transparent,
+                activeTrackColor = Color.Transparent, // Hide track to show bars
+                inactiveTrackColor = Color.Transparent
+            ),
+            thumb = {
+                value.roundToInt().let { thumbValue ->
+                    Box(
+                    ) {
+                        Text(
+                            text = thumbValue.toString(),
+                            color = Color.Transparent,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
                 }
+            })
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        for (i in 1..barCount) {
+            // Each bar
+            Box(
+                modifier = Modifier
+                    .width(barWidth)
+                    .height(20.dp)
+                    .background(Color.Transparent),
+            ) {
+                Text(
+                    modifier = if (i <= value.toInt()) {
+                        Modifier.align(Alignment.Center)
+                    } else Modifier.align(Alignment.Center),
+                    text = i.toString(),
+                    color = if (i == value.toInt()) Color.Black else Color.Gray,)
             }
         }
     }
+}
 
 
 

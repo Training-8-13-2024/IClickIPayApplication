@@ -12,6 +12,7 @@ import com.iclickipay.data.remote.tinder.ProductAPIInterface
 import com.iclickipay.data.repository.learn.Repository
 import com.iclickipay.data.tinder.local.dao.TinderBookingDao
 import com.iclickipayapplication.common.local.AppDatabase
+import com.iclickipayapplication.common.local.doctor.repository.RepoImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -113,5 +114,11 @@ class AppModule {
     fun provideTinder(db: AppDatabase): TinderBookingDao {
         return db.tinderDao()
     }
+
+
+    // Provide the DAO
+    @Provides
+    fun providePatientDao(database: AppDatabase) = database.PatientDao()
+
 
 }

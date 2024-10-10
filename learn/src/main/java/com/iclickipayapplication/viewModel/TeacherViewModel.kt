@@ -18,9 +18,7 @@ class LearnTeacherViewModel @Inject constructor(
     private val _upcomingData = MutableLiveData<List<TeacherBookingEntity>>()
     val upcomingData: LiveData<List<TeacherBookingEntity>> = _upcomingData
 
-    init {
-        loadBookings()
-    }
+
 
 
 

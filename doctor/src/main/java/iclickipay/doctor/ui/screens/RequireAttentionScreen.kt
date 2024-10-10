@@ -10,10 +10,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -39,6 +44,7 @@ fun RequireAttentionScreen(doctorNavController: NavHostController? = null) {
     val tab3 = TabSymptoms()
 
     Scaffold(
+        containerColor = Color.White,
         topBar = {
             Row(
                 modifier = Modifier
@@ -76,11 +82,13 @@ fun RequireAttentionScreen(doctorNavController: NavHostController? = null) {
             }
         }
     ) { innerPadding ->
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(Color.White)
+                .background(Color.White),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
         )
         {
             Column(
@@ -126,9 +134,38 @@ fun RequireAttentionScreen(doctorNavController: NavHostController? = null) {
                     CustomTabs()
                 }
             }
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ){
+            ResponseButton(
+                text = "Make an appointment",
+                backgroundColor = Color(0xFF10C971),
+                onClick = {
+                    doctorNavController?.navigate(DoctorNavigation.REPORT.name)
+                },
+                modifier = Modifier
+                    .height(90.dp).weight(0.5f)
+                    .padding(horizontal = 4.dp)
+            )
+
+                ResponseButton(
+                    text = "contact the emergencies",
+                    backgroundColor = Color(0xFFFF7A1A),
+                    onClick = {
+                        doctorNavController?.navigate(DoctorNavigation.REPORT.name)
+                    },
+                    modifier = Modifier
+                        .height(90.dp)
+                        .weight(0.5f)
+                        .padding(horizontal = 4.dp)
+                )
+            }
         }
     }
 }
+
+
 
 @Composable
 @Preview

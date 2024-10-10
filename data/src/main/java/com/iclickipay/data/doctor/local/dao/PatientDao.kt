@@ -11,7 +11,7 @@ import com.iclickipay.data.doctor.models.Patient
 @Dao
 interface PatientDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPatient(patient: PatientData)
 
     @Query("SELECT * FROM patient_data")
@@ -22,7 +22,6 @@ interface PatientDao {
 
     @Query("DELETE FROM patient_data WHERE id = :id")
     suspend fun deletePatient(id: Long)
-
 
     @Update
     suspend fun updatePatient(patient: PatientData)
