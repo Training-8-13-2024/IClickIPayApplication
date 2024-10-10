@@ -45,7 +45,8 @@ import com.iclickipay.hotel.R
 import com.iclickipayapplication.data.HotelModel
 import com.iclickipayapplication.ui.components.DateRoomsPicker
 import com.iclickipayapplication.ui.components.RoomPickerDialog
-import com.iclickipayapplication.ui.components.HotelDatePicker
+import com.iclickipayapplication.common.ui.components.HotelDatePicker
+import com.iclickipayapplication.ui.HotelNavigation
 import com.iclickipayapplication.ui.components.SearchCard
 import java.time.Instant
 import java.time.LocalDate
@@ -58,12 +59,6 @@ fun SearchHotelScreen(
     navController: NavHostController? = null,
     lesson: String = "Leason", level: String? = "Level"
 ) {
-
-
-    var location by remember { mutableStateOf("Johannesburg") }
-//    var checkInDate by remember { mutableStateOf(LocalDate.of(2024, 3, 20)) }
-//    var checkOutDate by remember { mutableStateOf(LocalDate.of(2024, 3, 22)) }
-
     var rooms = remember { mutableStateOf(1) }
     var adults = remember { mutableStateOf(1) }
     var kids = remember { mutableStateOf(0) }
@@ -76,7 +71,6 @@ fun SearchHotelScreen(
     val sheetState = rememberModalBottomSheetState()
 
     val hotelImages = listOf(
-        R.drawable.image,
         R.drawable.image2,
         R.drawable.image3,
         R.drawable.image4,
@@ -105,14 +99,6 @@ fun SearchHotelScreen(
             distance = 600,
             price = 120.0,
             image = hotelImages[2],
-            location = "Johannesburg"
-        ),
-        HotelModel(
-            name = "Marriot Hotel",
-            rating = 4.8,
-            distance = 700,
-            price = 15.0,
-            image = hotelImages[3],
             location = "Johannesburg"
         ),
     )
@@ -226,6 +212,7 @@ fun SearchHotelScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 30.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
 
 
@@ -235,11 +222,19 @@ fun SearchHotelScreen(
                         fontSize = 20.sp,
                         modifier = Modifier.padding(start = 16.dp)
                     )
-                    Icon(
-                        Icons.Default.Settings,
-                        contentDescription = "Settings",
-                        tint = Color(0xFFFF6F00),
-                    )
+                    Box(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable {
+                                navController?.navigate(HotelNavigation.FILTER.name)
+                            },
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.icon_filter),
+                            contentDescription = "Settings",
+                            tint = Color(0xFFFF6F00),
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -248,7 +243,11 @@ fun SearchHotelScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     hotelList.forEach { hotel ->
-                        SearchCard(hotel = hotel)
+                        if (navController != null) {
+                            SearchCard(
+                                navController = navController,
+                                hotel = hotel)
+                        }
                     }
                 }
 

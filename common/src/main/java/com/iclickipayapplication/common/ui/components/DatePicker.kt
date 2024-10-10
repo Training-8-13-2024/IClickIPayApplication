@@ -1,4 +1,4 @@
-package com.iclickipayapplication.ui.components
+package com.iclickipayapplication.common.ui.components
 
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.DateRangePickerState
@@ -27,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.iclickipayapplication.common.ui.components.CustomButton
 import kotlinx.coroutines.launch
 
 

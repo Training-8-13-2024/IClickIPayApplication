@@ -26,14 +26,15 @@ import androidx.compose.ui.unit.dp
 fun CustomButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    bgcolor: Color = Color(0xFFFF6F00),
 ) {
     Row(
         modifier = Modifier
             .background(Color.Transparent)
             .padding(vertical = 20.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(2.dp)),
-
+//            .shadow(elevation = 2.dp, shape = RoundedCornerShape(2.dp)),
+,
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -44,10 +45,11 @@ fun CustomButton(
             modifier = modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .padding(0.dp),
+                .padding(0.dp)
+                .shadow(elevation = 8.dp, shape = RoundedCornerShape(2.dp)),
             shape = RoundedCornerShape(6.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF6F00),
+                containerColor = bgcolor,
                 contentColor = Color.White
             ),
         ) {
