@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,8 +22,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -32,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.iclickipay.mechanic.R
-import com.iclickipayapplication.common.constants.HORIZONAL_PADDING
+import com.iclickipayapplication.common.constants.HORIZONTAL_PADDING
 import com.iclickipayapplication.common.constants.ORANGE
 import com.iclickipayapplication.common.constants.VERTICAL_PADDING
 import com.iclickipayapplication.common.ui.components.ButtonComponent
@@ -50,7 +47,7 @@ fun MechanicDetailScreen(
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = HORIZONAL_PADDING, vertical = VERTICAL_PADDING)
+                .padding(horizontal = HORIZONTAL_PADDING, vertical = VERTICAL_PADDING)
                 .weight(.3f)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Top
@@ -116,27 +113,27 @@ fun MechanicDetailScreen(
             ) {
                 Row(
                     modifier = Modifier
-                        .padding(vertical = 10.dp, horizontal = HORIZONAL_PADDING)
+                        .padding(vertical = 10.dp, horizontal = HORIZONTAL_PADDING)
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(5.dp)
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.location),
+                            painter = painterResource(R.drawable.rating),
                             contentDescription = "Location",
                             tint = orange
                         )
-                        Spacer(modifier = Modifier.padding(horizontal = 5.dp))
                         Text(
                             text = mechanic.rating,
                             modifier = Modifier.padding(start = 10.dp)
                         )
                     }
                     Text(
-                        text = mechanic.rate,
+                        text = "$${mechanic.rate}/h",
                         modifier = Modifier.padding(end = 10.dp)
                     )
                 }
@@ -153,7 +150,7 @@ fun MechanicDetailScreen(
                                 strokeWidth = borderThickness
                             )
                         }
-                        .padding(horizontal = HORIZONAL_PADDING, vertical = 10.dp)
+                        .padding(horizontal = HORIZONTAL_PADDING, vertical = 10.dp)
                 ) {
                     Text(
                         text = mechanic.about,
@@ -173,7 +170,7 @@ fun MechanicDetailScreen(
                                 strokeWidth = borderThickness
                             )
                         }
-                        .padding(horizontal = HORIZONAL_PADDING, vertical = 10.dp),
+                        .padding(horizontal = HORIZONTAL_PADDING, vertical = 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -199,7 +196,7 @@ fun MechanicDetailScreen(
                                 strokeWidth = borderThickness
                             )
                         }
-                        .padding(horizontal = HORIZONAL_PADDING, vertical = 10.dp),
+                        .padding(horizontal = HORIZONTAL_PADDING, vertical = 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -220,7 +217,7 @@ fun MechanicDetailScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = HORIZONAL_PADDING, vertical = 10.dp),
+                        .padding(horizontal = HORIZONTAL_PADDING, vertical = 10.dp),
                     verticalAlignment = Alignment.Bottom,
                 ) {
                     ButtonComponent(

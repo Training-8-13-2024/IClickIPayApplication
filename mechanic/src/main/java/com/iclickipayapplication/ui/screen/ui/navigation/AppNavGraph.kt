@@ -1,6 +1,5 @@
 package com.iclickipayapplication.ui.screen.ui.navigation
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,17 +20,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import com.google.gson.Gson
 import com.iclickipay.mechanic.R
 import com.iclickipayapplication.common.constants.GREY
-import com.iclickipayapplication.common.constants.HORIZONAL_PADDING
+import com.iclickipayapplication.common.constants.HORIZONTAL_PADDING
 import com.iclickipayapplication.common.ui.components.ButtonComponent
 import com.iclickipayapplication.common.ui.components.HeaderComponent
 import com.iclickipayapplication.ui.screen.data.models.Mechanic
+import com.iclickipayapplication.ui.screen.data.models.MechanicData
+import com.iclickipayapplication.ui.screen.ui.components.DatePickerModal
 import com.iclickipayapplication.ui.screen.ui.screens.InfoScreen
 import com.iclickipayapplication.ui.screen.ui.screens.MechanicDetailScreen
 import com.iclickipayapplication.ui.screen.ui.screens.MechanicHomeScreen
@@ -54,10 +54,15 @@ fun AppNavGraph(
                 navController = nav
             )
         }
-        composable(route = "mechanic_home") {
-            MechanicHomeScreen(
-                navController = nav
-            )
+        composable(route = "mechanic_home/{data}") { backStackEntry ->
+            val data = backStackEntry.arguments?.getString("data")
+            val mechanicData = Gson().fromJson(data, MechanicData::class.java)
+            if (data != null){
+                MechanicHomeScreen(
+                    navController = nav,
+                    data = mechanicData
+                )
+            }
         }
         composable(route = "mechanic_details/{mechanicId}") { backStackEntry ->
             val mechanicId = backStackEntry.arguments?.getString("mechanicId")
@@ -100,11 +105,11 @@ fun HomeScreen(
             modifier = Modifier
                 .weight(.2f)
                 .fillMaxWidth()
-                .padding(vertical = 40.dp, horizontal = HORIZONAL_PADDING),
+                .padding(vertical = 40.dp, horizontal = HORIZONTAL_PADDING),
         )
         Column(
             modifier = Modifier
-                .padding(horizontal = HORIZONAL_PADDING)
+                .padding(horizontal = HORIZONTAL_PADDING)
                 .weight(.7f)
                 .fillMaxWidth()
                 .fillMaxSize(),
@@ -133,7 +138,7 @@ fun HomeScreen(
         Row(
             modifier = Modifier
                 .weight(.2f)
-                .padding(horizontal = HORIZONAL_PADDING)
+                .padding(horizontal = HORIZONTAL_PADDING)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically

@@ -16,6 +16,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.iclickipay.mechanic.R
-import com.iclickipayapplication.common.constants.HORIZONAL_PADDING
+import com.iclickipayapplication.common.constants.HORIZONTAL_PADDING
 import com.iclickipayapplication.common.constants.ORANGE
 import com.iclickipayapplication.common.constants.VERTICAL_PADDING
 import com.iclickipayapplication.common.ui.components.ButtonComponent
@@ -43,6 +46,14 @@ fun OrderScreen(
 ) {
     val orange = colorResource(ORANGE)
     val borderThickness = 1f
+    val showMultiplier = remember { mutableStateOf(true) }
+    val multiplier = remember { mutableIntStateOf(3) }
+    val subTotal = remember {
+        mutableStateOf(
+            "${multiplier.value.toDouble() * mechanic.rate}"
+        )
+    }
+    val totalAmount = remember { mutableStateOf(subTotal.value) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +64,7 @@ fun OrderScreen(
                 .fillMaxWidth()
                 .weight(.4f)
                 .background(color = orange)
-                .padding(horizontal = HORIZONAL_PADDING, vertical = VERTICAL_PADDING)
+                .padding(horizontal = HORIZONTAL_PADDING, vertical = VERTICAL_PADDING)
         ) {
             Row(
                 modifier = Modifier
@@ -155,7 +166,7 @@ fun OrderScreen(
                 .weight(.6f)
                 .fillMaxWidth()
                 .background(color = Color.White)
-                .padding(horizontal = HORIZONAL_PADDING, vertical = 10.dp)
+                .padding(horizontal = HORIZONTAL_PADDING, vertical = 10.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -175,11 +186,24 @@ fun OrderScreen(
             ) {
                 Column {
                     Text(text = "Mechanic")
-                    Text(text = "Remove", color = orange, fontSize = 13.sp)
+                    if (showMultiplier.value) {
+                        Text(
+                            text = "Remove",
+                            color = orange,
+                            fontSize = 13.sp,
+                            modifier = Modifier.clickable {
+                                showMultiplier.value = false
+                                subTotal.value = "${1 * mechanic.rate}"
+                                totalAmount.value = subTotal.value
+                            }
+                        )
+                    }
                 }
                 Column {
-                    Text(text = mechanic.rate)
-                    Text(text = "x3", color = orange, fontSize = 13.sp)
+                    Text(text = "$${mechanic.rate}/h")
+                    if (showMultiplier.value) {
+                        Text(text = "x${multiplier.value}", color = orange, fontSize = 13.sp)
+                    }
                 }
             }
             Column(
@@ -203,7 +227,9 @@ fun OrderScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(text = "Subtotal")
-                    Text(text = mechanic.rate)
+                    Text(
+                        text = " $${subTotal.value}"
+                    )
                 }
                 Row(
                     modifier = Modifier
@@ -211,7 +237,7 @@ fun OrderScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(text = "Delivery fees")
-                    Text(text = "$0.00", color = Color.Gray, fontSize = 13.sp )
+                    Text(text = "$0.00", color = Color.Gray, fontSize = 13.sp)
                 }
             }
             Column(
@@ -222,7 +248,7 @@ fun OrderScreen(
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
                 Text(text = "Total amount", color = Color.Gray, fontSize = 13.sp)
-                Text(text = "$ 45.00", color = orange, fontSize = 20.sp)
+                Text(text = "$${totalAmount.value}", color = orange, fontSize = 20.sp)
             }
             Row(
                 modifier = Modifier

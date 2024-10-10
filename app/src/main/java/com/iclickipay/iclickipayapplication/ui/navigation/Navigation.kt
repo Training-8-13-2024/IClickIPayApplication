@@ -27,11 +27,11 @@ sealed class NavigationPaths {
 
 @Composable
 fun Navigation(
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostController
 ) {
     NavHost(
         navController = navController,
-        startDestination = Navigation.MECHANIC.name
+        startDestination = Navigation.HOME.name
     ) {
         composable(Navigation.HOME.name) {
             Home(navController)

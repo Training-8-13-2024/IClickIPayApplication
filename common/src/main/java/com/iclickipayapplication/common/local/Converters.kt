@@ -14,8 +14,4 @@ object Converters {
         val listType = object : com.google.gson.reflect.TypeToken<List<String>>() {}.type
         return Gson().fromJson(value, listType)
     }
-
-
-
-
 }

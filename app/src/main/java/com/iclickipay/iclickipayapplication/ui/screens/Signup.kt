@@ -1,5 +1,7 @@
 package com.iclickipay.iclickipayapplication.ui.screens
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,14 +27,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
 import com.iclickipay.iclickipayapplication.R
 import com.iclickipay.iclickipayapplication.ui.components.Form
+import com.iclickipay.iclickipayapplication.ui.navigation.Navigation
 
 
 @Composable
 fun SignUpScreen(
     navController: NavController
-){
+) {
     val firstName = remember { mutableStateOf("") }
     val lastName = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
@@ -91,7 +95,16 @@ fun SignUpScreen(
                     .padding(vertical = 10.dp)
             )
             Form(
-                onFormSubmit = {},
+                onFormSubmit = {
+                    createUser(
+                        firstName = firstName.value,
+                        lastName = lastName.value,
+                        email = email.value,
+                        phoneNumber = phoneNumber.value,
+                        navController = navController,
+                        context = navController.context
+                    )
+                },
                 firstName = firstName.value,
                 onFirstNameChange = { firstName.value = it },
                 lastName = lastName.value,
@@ -103,4 +116,31 @@ fun SignUpScreen(
             )
         }
     }
+}
+
+fun createUser(
+    firstName: String,
+    lastName: String,
+    email: String,
+    phoneNumber: String,
+    navController: NavController,
+    context: Context
+) {
+    val auth = FirebaseAuth.getInstance()
+
+    auth.createUserWithEmailAndPassword(email, phoneNumber)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Sign in success, update UI with the signed-in user's information
+                val user = auth.currentUser
+                navController.navigate(Navigation.MAIN.name)
+            } else {
+                // If sign in fails, display a message to the user.
+                Toast.makeText(
+                    context,
+                    "Authentication failed.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+        }
 }

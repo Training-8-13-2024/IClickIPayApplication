@@ -11,7 +11,7 @@ data class Mechanic(
     val mechanicPic: Int,
     val location: String,
     val rating: String,
-    val rate: String,
+    val rate: Double,
     val distance: String,
     val specialization: List<String>,
     val about: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
@@ -25,7 +25,7 @@ data class Mechanic(
                 mechanicPic = R.drawable.mechanic00,
                 location = "28 Broad Street,Johannesburg",
                 rating = "4.8",
-                rate = "$20/h",
+                rate = 20.00,
                 distance = "500",
                 specialization = listOf("Car", "Bike", "Truck")
             ),
@@ -35,7 +35,7 @@ data class Mechanic(
                 mechanicPic = R.drawable.mechanic01,
                 location = "45 Broad Street,Johannesburg",
                 rating = "4.5",
-                rate = "$15/h",
+                rate = 15.00,
                 distance = "1000",
                 specialization = listOf("Car", "Bike", "Truck")
             )

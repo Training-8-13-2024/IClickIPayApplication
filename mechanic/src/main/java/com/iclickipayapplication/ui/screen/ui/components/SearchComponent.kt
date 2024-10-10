@@ -1,6 +1,7 @@
 package com.iclickipayapplication.ui.screen.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.DatePicker
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +32,8 @@ fun SearchComponent(
     location: String,
     date: String,
     carType: String,
-    model: String
+    model: String,
+    onDateClick: () -> Unit
 ) {
     val orange = colorResource(ORANGE)
     Column(
@@ -82,7 +85,13 @@ fun SearchComponent(
             Column {
                 Text(text = "Choose Date", color = Color.Gray, fontWeight = FontWeight.Light)
                 Spacer(modifier = Modifier.padding(vertical = 2.dp))
-                Text(text = date)
+                Text(
+                    text = date,
+                    modifier = Modifier
+                        .clickable {
+                            onDateClick()
+                        }
+                )
             }
             Column {
                 Text(text = "Type", color = Color.Gray, fontWeight = FontWeight.Light)
